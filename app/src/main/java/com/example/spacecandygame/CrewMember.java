@@ -17,6 +17,7 @@ public class CrewMember {
     protected Location location; //get location, set location
     protected int missionsCompleted; //track number of missions each character has completed
 
+
     //Constructor
     public CrewMember(String id, String name) {
         this.id = id; //set member id

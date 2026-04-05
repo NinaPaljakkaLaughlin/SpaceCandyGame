@@ -1,48 +1,41 @@
 package com.example.spacecandygame;
 
-public class Engineer extends CrewMember{
-
-    public Engineer(String id, String name) {
+public class Soldier extends CrewMember {
+    public Soldier(String id, String name) {
         super(id, name);
-        setCrewType(CrewType.ENGINEER);
-        this.resilience = 7;
+        setCrewType(CrewType.SOLDIER);
+        this.resilience = 8;
         this.XP = 0;
-
     }
-    //Planting flowers increase engineer xp by 5
-    public void plantFlower() {
-        SpecialStuff.addFlower();
-        addXP(5);
-    }
-
-    //Engineer throws a gear  at the sour gummy worms.
-    //Engineer cannot enter battle before gaining 50 xp
+    //soldier’s weapon is a sword that slices the sour gummy worms.
+    //Soldier cannot enter battle before gaining 50 xp
     @Override
     public boolean canEnterBattle() {
         return getXP() >= 50;
     }
 
-    //training
-    public int attack(VillainType target){
-        //before getting 50 xp
+    public int attack(VillainType target) {
+
         //only sour gummy worm gives +xp
+        //Soldier before enough XP
         if (getLocation() == Location.TRAINING && getXP() < 50) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 addXP(3);
-            }else {
+            } else {
                 getDamageAmount();
                 takeTrainingDamage();
             }
             return 0;
         }
-        //engineer can go into battle after 50 xp
+        //soldier can go into battle after 50 xp
         //in the battle sour and sweet gummy worms give + xp
         //gummy bear gives - xp
 
+
         //battle
         if (getLocation() == Location.BATTLE && getXP() >= 50) {
-            if (target == VillainType.SWEET_GUMMY_WORM || target == VillainType.SOUR_GUMMY_WORM) {
-                return 3; //crew points gained
+            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM ) {
+                return 2; //crew points gained
             } else if (target == VillainType.GUMMY_BEAR) {
                 getDamageAmount();
                 takeBattleDamage();
@@ -52,13 +45,3 @@ public class Engineer extends CrewMember{
         return 0;
     }
 }
-
-
-
-
-
-
-
-
-
-
