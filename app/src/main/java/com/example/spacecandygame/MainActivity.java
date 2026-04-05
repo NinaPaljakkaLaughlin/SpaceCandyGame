@@ -8,6 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 //main activity, adding comment here for main project notes
+//ChatGPT AI was used for psuedocoding this project for organization of files.
 public class MainActivity extends AppCompatActivity {
 
     @Override
