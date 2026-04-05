@@ -101,6 +101,10 @@ public class CrewMember {
     private void countMissions() {
         missionsCompleted++;
     }
+    //Method for getting the number of completed missions
+    public int getMissionsCompleted() {
+        return missionsCompleted;
+    }
     //Method for setting character location
     public void setLocation(Location newLocation) {
         if (newLocation == Location.BATTLE && this.location != Location.BATTLE) {
