@@ -27,7 +27,6 @@ public class Dragon extends CrewMember {
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 addXP(2);
             } else {
-                getDamageAmount();
                 takeTrainingDamage();
             }
             return 0; //returns 0 crew points when training
@@ -39,6 +38,9 @@ public class Dragon extends CrewMember {
             if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
                 addXP(5);
             }
+            else {
+                takeTrainingDamage();
+            }
             return 0; //returns 0 crew points when training
         }
         //battle
@@ -46,7 +48,6 @@ public class Dragon extends CrewMember {
             if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
                 return 2; //crew points gained
             } else if (target == VillainType.GUMMY_BEAR) {
-                getDamageAmount();
                 takeBattleDamage(); //lose energy when you hit gummy bears by accident
             }
         }
