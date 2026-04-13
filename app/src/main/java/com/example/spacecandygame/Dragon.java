@@ -20,12 +20,15 @@ public class Dragon extends CrewMember {
     public boolean canEnterBattle() {
         return getXP() >= 60;
     }
-
+    @Override
+    public int crewMemberAction(VillainType target) {
+        return attack(target);
+    }
     public int attack(VillainType target) { //should return crew points
         //dragon can only train
         if (getLocation() == Location.TRAINING && getXP() < 60) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
-                addXP(2);
+                addXP(2 + getXP());
             } else {
                 takeTrainingDamage();
             }
@@ -36,7 +39,7 @@ public class Dragon extends CrewMember {
         //training after XP >= 60
         if (getLocation() == Location.TRAINING && getXP() >= 60) {
             if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
-                addXP(5);
+                addXP(5 + getXP());
             }
             else {
                 takeTrainingDamage();
