@@ -33,17 +33,12 @@ public class Scientist extends CrewMember{
     public int getChemicals() {
         return chemicals;
     }
-    //Method to attack with chemical
-    public void chemicalAttack() {
-
-    }
     //Method for picking flowers
     public void pickFlowers() {
         if (getLocation() == Location.FLOWER_FIELD) {
             flowers += 2; //total flower count tracked here when flowers are clicked on UI
         }
     }
-
     //Method for using flowers to make chemical
     public void makeChemical() {
         if (flowers >= 10) {
@@ -59,6 +54,10 @@ public class Scientist extends CrewMember{
         }
         return false;
     }
+    @Override
+    public int crewMemberAction(VillainType target) {
+        return attack(target);
+    }
     public int attack(VillainType target) { //should return crew points
         //must have chemicals
         if (!canAttack()) {
@@ -69,7 +68,6 @@ public class Scientist extends CrewMember{
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 addXP(2);
             } else {
-                getDamageAmount();
                 takeTrainingDamage();
             }
             return 0; //returns 0 crew points when training

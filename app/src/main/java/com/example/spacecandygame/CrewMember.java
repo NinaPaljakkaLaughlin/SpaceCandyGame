@@ -110,7 +110,20 @@ public class CrewMember {
         if (newLocation == Location.BATTLE && this.location != Location.BATTLE) {
             countMissions();
         }
+        if (newLocation == Location.QUARTERS) {
+            energy = maxEnergy;
+        }
         this.location = newLocation;
+    }
+    //Method for moving characters to different locations -> should always start from quarters
+    public void moveCrewMember(Location newLocation) {
+        if (location == Location.QUARTERS) {
+            setLocation(newLocation);
+        }
+    }
+    //Method for acting during gameplay, training arena and battle arena
+    public int crewMemberAction(VillainType target) {
+        return 0;
     }
 }
 
