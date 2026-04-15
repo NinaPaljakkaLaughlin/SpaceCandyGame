@@ -5,7 +5,7 @@ import java.util.*;
 //AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
 //within the code once written. No code has been written by AI or copy-pasted from an AI source.
 
-public class CrewMember {
+public abstract class CrewMember {
     //Attributes
     private String id; //get ID, ID set when crew member is made
     private String name; //get name, name set when crew member is made
@@ -16,7 +16,8 @@ public class CrewMember {
     protected int resilience; //get resilience, values hardcoded in each crew members classes
     protected Location location; //get location, set location
     protected int missionsCompleted; //track number of missions each character has completed
-
+    public abstract int onTrainClick(VillainType target);
+    public abstract int onMissionClick(VillainType target);
     //Constructor
     public CrewMember(String id, String name) {
         this.id = id; //set member id
@@ -85,6 +86,10 @@ public class CrewMember {
             energy = 0;
         }
     }
+    //Method for boolean on if energy is too low
+    public boolean hasNoEnergy() {
+        return energy <= 0;
+    }
     //Method for healing energy by the doctor (energy can only be increased from going to the medbay for healing by the doctor)
     public void healed() {
         this.energy = this.maxEnergy;
@@ -117,14 +122,11 @@ public class CrewMember {
     }
     //Method for moving characters to different locations -> should always start from quarters
     public void moveCrewMember(Location newLocation) {
-        if (location == Location.QUARTERS) {
-            setLocation(newLocation);
-        }
+        this.location = newLocation;
     }
+
     //Method for acting during gameplay, training arena and battle arena
-    public int crewMemberAction(VillainType target) {
-        return 0;
-    }
+    public abstract int crewMemberAction(VillainType target);
 }
 
 

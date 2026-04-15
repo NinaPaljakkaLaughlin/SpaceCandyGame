@@ -25,6 +25,29 @@ public class Scientist extends CrewMember{
     public boolean canEnterBattle() {
         return getXP() >= 50;
     }
+    //Method to handle click in training and battle for points, XP, and damage
+    @Override
+    public int onTrainClick(VillainType target) {
+        if (!hasChemicals()) return 0;
+        if (target == VillainType.SOUR_GUMMY_WORM) {
+            chemicals--;
+            addXP(2);
+        } else {
+            takeTrainingDamage();
+        }
+        return 0;
+    }
+    @Override
+    public int onMissionClick(VillainType target) {
+        if (!hasChemicals()) return 0;
+        if (target == VillainType.SOUR_GUMMY_WORM) {
+            chemicals--;
+            addXP(5);
+        } else {
+            takeTrainingDamage();
+        }
+        return 0;
+    }
     //Method to get flowers number for UI display
     public int getFlowers() {
         return flowers;
@@ -46,13 +69,16 @@ public class Scientist extends CrewMember{
             flowers -= 10; //total flower count subtracts when a chemical is formulated
         }
     }
+    //Method for tracking existence of chemicals
+    public boolean hasChemicals() {
+        return chemicals > 0;
+    }
     //Method to track ability to attack (must have chemical stock)
     public boolean canAttack() {
-        if (chemicals > 0) {
-            chemicals --;
+        if (!hasChemicals())
+            return false;
+        else
             return true;
-        }
-        return false;
     }
     @Override
     public int crewMemberAction(VillainType target) {
@@ -60,9 +86,11 @@ public class Scientist extends CrewMember{
     }
     public int attack(VillainType target) { //should return crew points
         //must have chemicals
-        if (!canAttack()) {
+        if (!hasChemicals()) {
             return 0;
         }
+        else
+            chemicals--;
         //scientist can only train
         if (getLocation() == Location.TRAINING && getXP() < 50) {
             if (target == VillainType.SOUR_GUMMY_WORM) {

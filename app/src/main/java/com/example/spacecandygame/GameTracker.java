@@ -16,7 +16,7 @@ public class GameTracker {
 
     //constructor
     public GameTracker(List<CrewMember> crewList) {
-        if (crewList != null) this.crewList = new ArrayList<>();
+        this.crewList = (crewList != null) ? crewList: new ArrayList<>();
         this.crewPoints = 0;
     }
     //Method to select which members will go to battle arena
@@ -79,15 +79,23 @@ public class GameTracker {
 
         CrewMember crew1 = battleMembers.get(0);
         CrewMember crew2 = battleMembers.get(1);
+        Mission mission = new Mission();
+        mission.startMission(crew1, crew2, threat);
 
-        while (threat.getThreatCounter() > 0) {
-            //crew member 1 takes turn
-            if (crew1.getEnergy() > 0) {
+        totalMissions++;
+    }
+    //Method for handling random enemy amounts for training and battle
+    public List<VillainType> generateVillains(int count) {
+        List<VillainType> list = new ArrayList<>();
 
-            }
-            if (crew2.getEnergy() > 0) {
+        for (int i = 0; i < count; i++) {
+            double rand = Math.random();
 
-            }
+            if (rand < 0.6) list.add(VillainType.SOUR_GUMMY_WORM);
+            else if (rand < 0.85) list.add(VillainType.SWEET_GUMMY_WORM);
+            else list.add(VillainType.GUMMY_BEAR);
         }
+
+        return list;
     }
 }

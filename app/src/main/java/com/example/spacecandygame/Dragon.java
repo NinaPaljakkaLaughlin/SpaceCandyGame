@@ -24,11 +24,31 @@ public class Dragon extends CrewMember {
     public int crewMemberAction(VillainType target) {
         return attack(target);
     }
+    //Method to handle click in training and battle for points, XP, and damage
+    @Override
+    public int onTrainClick(VillainType target) {
+        if (target == VillainType.SOUR_GUMMY_WORM) {
+            chemicals--;
+            addXP(2);
+        } else {
+            takeTrainingDamage();
+        }
+        return 0;
+    }
+    @Override
+    public int onMissionClick(VillainType target) {
+        if (target == VillainType.SOUR_GUMMY_WORM) {
+            addXP(5);
+        } else {
+            takeTrainingDamage();
+        }
+        return 0;
+    }
     public int attack(VillainType target) { //should return crew points
         //dragon can only train
         if (getLocation() == Location.TRAINING && getXP() < 60) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
-                addXP(2 + getXP());
+                addXP(2);
             } else {
                 takeTrainingDamage();
             }
@@ -39,7 +59,7 @@ public class Dragon extends CrewMember {
         //training after XP >= 60
         if (getLocation() == Location.TRAINING && getXP() >= 60) {
             if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
-                addXP(5 + getXP());
+                addXP(5);
             }
             else {
                 takeTrainingDamage();
