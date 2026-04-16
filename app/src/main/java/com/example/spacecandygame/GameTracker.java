@@ -16,8 +16,11 @@ public class GameTracker {
 
     //constructor
     public GameTracker(List<CrewMember> crewList) {
-        if (crewList != null) this.crewList = new ArrayList<>();
-        this.crewPoints = 0;
+        if (crewList != null) {
+            this.crewList = crewList;
+        }else {
+            this.crewList = new ArrayList<>();
+        }this.crewPoints = 0;
     }
     //Method to select which members will go to battle arena
     public void setBattleMembers(CrewMember crewMember) {
@@ -71,6 +74,10 @@ public class GameTracker {
         }
         return total;
     }
+    //getter so Soldier House can read the created soldiers:
+    public List<CrewMember> getCrewList() {
+        return crewList;
+    }
     //Method to control mission turns - user should select players from a list,
     // then there should be one round with one crew member and the next round with the other
     public void missionTurn(Threat threat) {
@@ -90,4 +97,5 @@ public class GameTracker {
             }
         }
     }
+
 }

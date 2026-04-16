@@ -9,6 +9,7 @@ public class CrewMember {
     //Attributes
     private String id; //get ID, ID set when crew member is made
     private String name; //get name, name set when crew member is made
+    private String color; //get color, color set when crew member is made
     protected CrewType crewType; //defines the type of crew member, need getter and setter
     protected int XP; //get XP, damage in training method manages decreasing XP, add XP in training method manages increasing XP
     protected int energy; //get energy, damage in battle method manages decreasing energy, heal method manages increasing energy from doctor
@@ -28,6 +29,7 @@ public class CrewMember {
         this.location = Location.QUARTERS;
         this.XP = 0;
         this.missionsCompleted = 0;
+        this.color = "";
     }
     //Method for getting crew member id
     public String getId() {
@@ -38,6 +40,9 @@ public class CrewMember {
         return name;
     }
     //Method for getting crew type
+    public String getColor() {
+        return color;
+    }
     public CrewType getCrewType() {
         return crewType;
     }
@@ -105,6 +110,9 @@ public class CrewMember {
     //Method for getting the number of completed missions
     public int getMissionsCompleted() {
         return missionsCompleted;
+    }
+    public void setColor(String color) {
+        this.color = color;
     }
     //Method for setting character location
     public void setLocation(Location newLocation) {
