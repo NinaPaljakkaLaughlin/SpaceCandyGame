@@ -127,10 +127,10 @@ public class TrainingFragment extends Fragment {
         TextView worm = new TextView(getContext());
         if (type == VillainType.SOUR_GUMMY_WORM) {
             worm.setText("🐛"); // Sour worm
-            worm.setTextColor(0xFF00FF00); // Green for sour
+            worm.setTextColor(0xFF00FF00);
         } else {
-            worm.setText("🍬"); // Sweet worm
-            worm.setTextColor(0xFFFF00FF); // Pink for sweet
+            worm.setText("🍬"); // hard candy
+            worm.setTextColor(0xFFFF00FF);
         }
         worm.setTextSize(40);
 
@@ -148,7 +148,7 @@ public class TrainingFragment extends Fragment {
 
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
             animator.setDuration(15000 + random.nextInt(2000));
-            animator.setStartDelay(random.nextInt(2000));
+            animator.setStartDelay(random.nextInt(1000));
             
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -164,12 +164,12 @@ public class TrainingFragment extends Fragment {
             worm.setOnClickListener(v -> {
                 if (type == VillainType.SOUR_GUMMY_WORM) {
                     int oldXP = trainee.getXP();
-                    trainee.addXP(10); // Gaining XP
+                    trainee.addXP(2); // Gaining XP
                     xpGainedSession += (trainee.getXP() - oldXP);
                 } else {
                     int oldXP = trainee.getXP();
                     trainee.takeTrainingDamage(); // Losing XP
-                    xpLostSession += Math.abs(trainee.getXP() - oldXP);
+                    xpLostSession += trainee.getXP() - oldXP;
                 }
                 trainingArena.removeView(worm);
                 animator.cancel();

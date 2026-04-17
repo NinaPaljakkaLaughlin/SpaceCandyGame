@@ -181,10 +181,6 @@ public abstract class CrewMember {
         this.location = newLocation;
     }
 
-    //Method for moving characters to different locations
-    public void moveCrewMember(Location newLocation) {
-        this.location = newLocation;
-    }
 
     //Method for acting during gameplay, training arena and battle arena
     public abstract int crewMemberAction(VillainType target);
