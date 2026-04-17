@@ -57,6 +57,7 @@ public class SoldierHouseFragment extends Fragment {
                                     "\nXP: " + crewMember.getXP() +
                                     "\nEnergy: " + crewMember.getEnergy() +
                                     "\nLocation: " + crewMember.getLocation()
+
                     );
                 });
 
@@ -68,7 +69,7 @@ public class SoldierHouseFragment extends Fragment {
             if (selectedSoldier != null) {
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main, new TrainingFragment())
+                        .replace(R.id.main, TrainingFragment.newInstance(selectedSoldier.getId()))
                         .addToBackStack(null)
                         .commit();
             } else {

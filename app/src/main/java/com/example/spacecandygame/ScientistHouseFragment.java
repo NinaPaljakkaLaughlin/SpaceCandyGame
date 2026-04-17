@@ -56,8 +56,11 @@ public class ScientistHouseFragment extends Fragment {
                     selectedScientist = crewMember;
                     statsText.setText(
                             "Name: " + crewMember.getName() +
+                                    "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
-                                    "\nEnergy: " + crewMember.getEnergy()
+                                    "\nEnergy: " + crewMember.getEnergy() +
+                                    "\nLocation: " + crewMember.getLocation()
+
                     );
                 });
 
@@ -70,7 +73,7 @@ public class ScientistHouseFragment extends Fragment {
             if (selectedScientist != null) {
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main, new TrainingFragment())
+                        .replace(R.id.main, TrainingFragment.newInstance(selectedScientist.getId()))
                         .addToBackStack(null)
                         .commit();
             } else {

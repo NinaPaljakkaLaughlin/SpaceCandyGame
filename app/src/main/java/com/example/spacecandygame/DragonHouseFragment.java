@@ -58,6 +58,7 @@ public class DragonHouseFragment extends Fragment {
                                     "\nXP: " + crewMember.getXP() +
                                     "\nEnergy: " + crewMember.getEnergy() +
                                     "\nLocation: " + crewMember.getLocation()
+
                     );
                 });
 
@@ -69,7 +70,7 @@ public class DragonHouseFragment extends Fragment {
             if (selectedDragon != null) {
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main, new TrainingFragment())
+                        .replace(R.id.main, TrainingFragment.newInstance(selectedDragon.getId()))
                         .addToBackStack(null)
                         .commit();
             } else {

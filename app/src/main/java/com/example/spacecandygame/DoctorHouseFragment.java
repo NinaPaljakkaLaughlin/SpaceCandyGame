@@ -30,6 +30,7 @@ public class DoctorHouseFragment extends Fragment {
 
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button healButton = view.findViewById(R.id.healButton);
+        Button trainButton = view.findViewById(R.id.trainButton);
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout doctorContainer = view.findViewById(R.id.soldierContainer);
 
@@ -55,7 +56,8 @@ public class DoctorHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
-                                    "\nEnergy: " + crewMember.getEnergy()
+                                    "\nEnergy: " + crewMember.getEnergy() +
+                                    "\nLocation: " + crewMember.getLocation()
                     );
                 });
 
@@ -73,6 +75,18 @@ public class DoctorHouseFragment extends Fragment {
                                 "\nEnergy: " + selectedDoctor.getEnergy() +
                                 "\nStatus: Healed"
                 );
+            } else {
+                statsText.setText("Please select a doctor first.");
+            }
+        });
+
+        trainButton.setOnClickListener(v -> {
+            if (selectedDoctor != null) {
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, TrainingFragment.newInstance(selectedDoctor.getId()))
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select a doctor first.");
             }
