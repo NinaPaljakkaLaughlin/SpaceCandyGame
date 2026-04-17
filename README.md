@@ -32,7 +32,7 @@ What you need:
 Android Studio (or your development environment)
 
 Clone the repository:
-git clone https://github.com/your-username/candyland-adventure.git
+git clone https://github.com/NinaPaljakkaLaughlin/SpaceCandyGame.git
 Open the project in Android Studio
 Build and run the app
 
