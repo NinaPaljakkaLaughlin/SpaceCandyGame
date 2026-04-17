@@ -1,6 +1,7 @@
 SPACE CANDY GAME DOCUMENTATION
 ******************************************************************************************************
 Group Name: NOP
+
 Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
 ******************************************************************************************************
 - Project Description: CandyWorld Battle
@@ -12,6 +13,7 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
 ******************************************************************************************************
 - Divison of Work
   *
+  
     Project Plan Documentation:
   
     - Implementation Plan: written by Nina
@@ -37,7 +39,7 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
     - TrainingFragment
     - VillainType
 
-      written by Özde
+     written by Özde
     - Doctor (Satarupa)
     - DoctorHouseFragment
     - DragonHouseFragment
@@ -52,7 +54,7 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
     - SoldierHouseFragment
     - SpecialStuff
       
-      written in collaboration
+      written by Özde
     - HomeFragment
     - RecruitFragment
       
