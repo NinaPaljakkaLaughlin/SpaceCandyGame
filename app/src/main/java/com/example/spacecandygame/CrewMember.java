@@ -18,6 +18,8 @@ public abstract class CrewMember {
     protected int resilience; //get resilience, values hardcoded in each crew members classes
     protected Location location; //get location, set location
     protected int missionsCompleted; //track number of missions each character has completed
+    protected int trainingSessions; //track how many training sessions this character has done
+    protected int skillPower; //skill power of the crew member
 
     public abstract int onTrainClick(VillainType target);
     public abstract int onMissionClick(VillainType target);
@@ -32,6 +34,8 @@ public abstract class CrewMember {
         this.location = Location.QUARTERS;
         this.XP = 0;
         this.missionsCompleted = 0;
+        this.trainingSessions = 0;
+        this.skillPower = 1;
         this.color = "";
     }
 
@@ -91,11 +95,28 @@ public abstract class CrewMember {
 
     public void takeTrainingDamage() {
         XP -= getDamageAmount();
+        updateSkillPower();
     }
 
     //Method for adding XP in training
     public void addXP(int amount) {
         XP += amount;
+        updateSkillPower();
+    }
+
+    private void updateSkillPower() {
+        // Skill power increases by 1 for every 50 XP gained.
+        // Assuming base skill power is 1 and it depends on total XP.
+        // If XP is negative, skill power might drop or stay at 1.
+        if (XP < 0) {
+            skillPower = 1;
+        } else {
+            skillPower = 1 + (XP / 50);
+        }
+    }
+
+    public int getSkillPower() {
+        return skillPower;
     }
 
     //Method for getting energy
@@ -141,6 +162,14 @@ public abstract class CrewMember {
         return missionsCompleted;
     }
 
+    public void incrementTrainingSessions() {
+        trainingSessions++;
+    }
+
+    public int getTrainingSessions() {
+        return trainingSessions;
+    }
+
     //Method for setting character location
     public void setLocation(Location newLocation) {
         if (newLocation == Location.BATTLE && this.location != Location.BATTLE) {
@@ -160,5 +189,3 @@ public abstract class CrewMember {
     //Method for acting during gameplay, training arena and battle arena
     public abstract int crewMemberAction(VillainType target);
 }
-
-
