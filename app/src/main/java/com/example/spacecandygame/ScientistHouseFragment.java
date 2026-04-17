@@ -71,11 +71,16 @@ public class ScientistHouseFragment extends Fragment {
         // TRAIN
         trainButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main, TrainingFragment.newInstance(selectedScientist.getId()))
-                        .addToBackStack(null)
-                        .commit();
+                Scientist scientist = (Scientist) selectedScientist;
+                if (scientist.canStartTraining()) {
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main, TrainingFragment.newInstance(selectedScientist.getId()))
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    statsText.setText("Scientist needs 10 chemicals before training.");
+                }
             } else {
                 statsText.setText("Please select a scientist first.");
             }
@@ -84,12 +89,17 @@ public class ScientistHouseFragment extends Fragment {
         // BATTLE
         battleButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                selectedScientist.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedScientist.getName() +
-                                "\nEnergy: " + selectedScientist.getEnergy() +
-                                "\nStatus: Went to battle"
-                );
+                if (selectedScientist.canEnterBattle()) {
+                    selectedScientist.setLocation(Location.BATTLE);
+
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main, new BattleFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    statsText.setText("This scientist needs more XP before entering battle.");
+                }
             } else {
                 statsText.setText("Please select a scientist first.");
             }
@@ -98,8 +108,11 @@ public class ScientistHouseFragment extends Fragment {
         // COLLECT FLOWERS
         collectFlowerButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                ((Scientist) selectedScientist).pickFlowers();
-                statsText.setText("Collected flowers!");
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, FlowerFieldFragment.newInstance(selectedScientist.getId(), "SCIENTIST"))
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select a scientist first.");
             }
@@ -108,8 +121,14 @@ public class ScientistHouseFragment extends Fragment {
         // MAKE POTION
         makePotionButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                ((Scientist) selectedScientist).makeChemical();
-                statsText.setText("Potion created!");
+                Scientist scientist = (Scientist) selectedScientist;
+                scientist.makeChemical();
+
+                statsText.setText(
+                        "Name: " + scientist.getName() +
+                                "\nFlowers: " + scientist.getFlowers() +
+                                "\nChemicals: " + scientist.getChemicals()
+                );
             } else {
                 statsText.setText("Please select a scientist first.");
             }

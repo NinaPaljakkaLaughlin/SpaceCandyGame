@@ -58,16 +58,18 @@ public class Scientist extends CrewMember{
     }
     //Method for picking flowers
     public void pickFlowers() {
-        if (getLocation() == Location.FLOWER_FIELD) {
-            flowers += 2; //total flower count tracked here when flowers are clicked on UI
-        }
+        flowers += 1; //total flower count tracked here when flowers are clicked on UI
     }
     //Method for using flowers to make chemical
     public void makeChemical() {
-        if (flowers >= 10) {
-            chemicals += 5; //total chemical count goes up, costs 10 flowers
-            flowers -= 10; //total flower count subtracts when a chemical is formulated
+        if (flowers >= 5) {
+            chemicals += 1; //total chemical count goes up, costs 5 flowers
+            flowers -= 5; //total flower count subtracts when a chemical is formulated
         }
+    }
+    //Method for checking if scientist can start training
+    public boolean canStartTraining() {
+        return chemicals >= 10;
     }
     //Method for tracking existence of chemicals
     public boolean hasChemicals() {

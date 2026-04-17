@@ -80,15 +80,17 @@ public class DragonHouseFragment extends Fragment {
 
         battleButton.setOnClickListener(v -> {
             if (selectedDragon != null) {
-                selectedDragon.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedDragon.getName() +
-                                "\nColor: " + selectedDragon.getColor() +
-                                "\nXP: " + selectedDragon.getXP() +
-                                "\nEnergy: " + selectedDragon.getEnergy() +
-                                "\nLocation: " + selectedDragon.getLocation() +
-                                "\nStatus: Went to battle"
-                );
+                if (selectedDragon.canEnterBattle()) {
+                    selectedDragon.setLocation(Location.BATTLE);
+
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main, new BattleFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    statsText.setText("This dragon needs more XP before entering battle.");
+                }
             } else {
                 statsText.setText("Please select a dragon first.");
             }

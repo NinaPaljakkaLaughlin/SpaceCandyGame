@@ -82,13 +82,17 @@ public class EngineerHouseFragment extends Fragment {
         // BATTLE
         battleButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
-                selectedEngineer.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedEngineer.getName() +
-                                "\nXP: " + selectedEngineer.getXP() +
-                                "\nEnergy: " + selectedEngineer.getEnergy() +
-                                "\nStatus: Went to battle"
-                );
+                if (selectedEngineer.canEnterBattle()) {
+                    selectedEngineer.setLocation(Location.BATTLE);
+
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main, new BattleFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    statsText.setText("This engineer needs more XP before entering battle.");
+                }
             } else {
                 statsText.setText("Please select an engineer first.");
             }
@@ -97,12 +101,11 @@ public class EngineerHouseFragment extends Fragment {
         // PLANT FLOWER
         plantFlowerButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
-                ((Engineer) selectedEngineer).plantFlower();
-                statsText.setText(
-                        "Name: " + selectedEngineer.getName() +
-                                "\nXP: " + selectedEngineer.getXP() +
-                                "\nStatus: Planted Flower"
-                );
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, FlowerFieldFragment.newInstance(selectedEngineer.getId(), "ENGINEER"))
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select an engineer first.");
             }

@@ -79,15 +79,17 @@ public class SoldierHouseFragment extends Fragment {
 
         battleButton.setOnClickListener(v -> {
             if (selectedSoldier != null) {
-                selectedSoldier.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedSoldier.getName() +
-                                "\nColor: " + selectedSoldier.getColor() +
-                                "\nXP: " + selectedSoldier.getXP() +
-                                "\nEnergy: " + selectedSoldier.getEnergy() +
-                                "\nLocation: " + selectedSoldier.getLocation() +
-                                "\nStatus: Went to battle"
-                );
+                if (selectedSoldier.canEnterBattle()) {
+                    selectedSoldier.setLocation(Location.BATTLE);
+
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main, new BattleFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    statsText.setText("This soldier needs more XP before entering battle.");
+                }
             } else {
                 statsText.setText("Please select a soldier first.");
             }

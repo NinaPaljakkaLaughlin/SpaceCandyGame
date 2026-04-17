@@ -86,6 +86,11 @@ public class GameTracker {
         return crewList;
     }
 
+    //Method to get a crew member by id
+    public CrewMember getCrewMemberById(String id) {
+        return crewMap.get(id);
+    }
+
     //Method to control mission turns - user should select players from a list,
     // then there should be one round with one crew member and the next round with the other
     public void missionTurn(Threat threat) {
