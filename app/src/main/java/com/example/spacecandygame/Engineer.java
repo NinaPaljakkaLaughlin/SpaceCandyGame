@@ -52,7 +52,7 @@ public class Engineer extends CrewMember{
         }
 
         if (getLocation() == Location.BATTLE && getXP() >= 50) {
-            if (target == VillainType.SWEET_GUMMY_WORM || target == VillainType.SOUR_GUMMY_WORM) {
+            if (target == VillainType.HARD_CANDY || target == VillainType.SOUR_GUMMY_WORM) {
                 return 3;
             } else if (target == VillainType.GUMMY_BEAR) {
                 takeBattleDamage();

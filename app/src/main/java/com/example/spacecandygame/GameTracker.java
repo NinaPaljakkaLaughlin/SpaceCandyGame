@@ -108,7 +108,7 @@ public class GameTracker {
             double rand = Math.random();
 
             if (rand < 0.6) list.add(VillainType.SOUR_GUMMY_WORM);
-            else if (rand < 0.85) list.add(VillainType.SWEET_GUMMY_WORM);
+            else if (rand < 0.85) list.add(VillainType.HARD_CANDY);
             else list.add(VillainType.GUMMY_BEAR);
         }
 

@@ -116,7 +116,7 @@ public class Scientist extends CrewMember{
         if (getLocation() == Location.BATTLE && getXP() >= 50) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 return 2; //crew points gained
-            } else if (target == VillainType.GUMMY_BEAR || target == VillainType.SWEET_GUMMY_WORM) {
+            } else if (target == VillainType.GUMMY_BEAR || target == VillainType.HARD_CANDY) {
                 takeBattleDamage(); //lose energy when you hit gummy bears by accident
             }
         }

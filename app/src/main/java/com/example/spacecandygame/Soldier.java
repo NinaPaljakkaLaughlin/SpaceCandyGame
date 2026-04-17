@@ -49,7 +49,7 @@ public class Soldier extends CrewMember {
 
         //battle
         if (getLocation() == Location.BATTLE && getXP() >= 50) {
-            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM ) {
+            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.HARD_CANDY) {
                 return 2;
             } else if (target == VillainType.GUMMY_BEAR) {
                 takeBattleDamage();

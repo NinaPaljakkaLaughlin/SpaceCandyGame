@@ -58,7 +58,7 @@ public class Dragon extends CrewMember {
         //dragon can train and enter battle
         //training after XP >= 60
         if (getLocation() == Location.TRAINING && getXP() >= 60) {
-            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
+            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.HARD_CANDY) {
                 addXP(5);
             }
             else {
@@ -68,7 +68,7 @@ public class Dragon extends CrewMember {
         }
         //battle
         if (getLocation() == Location.BATTLE && getXP() >= 60) {
-            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.SWEET_GUMMY_WORM) {
+            if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.HARD_CANDY) {
                 return 2; //crew points gained
             } else if (target == VillainType.GUMMY_BEAR) {
                 takeBattleDamage(); //lose energy when you hit gummy bears by accident

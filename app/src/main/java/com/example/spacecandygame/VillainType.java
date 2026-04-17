@@ -7,9 +7,9 @@ package com.example.spacecandygame;
 public enum VillainType {
     //sour gummy worms = evil
     SOUR_GUMMY_WORM,
-    //sweet gummy worms = good
-    SWEET_GUMMY_WORM,
-    //gummy bears = good and evil
+    //hard candies = good and evil
+    HARD_CANDY,
+    //gummy bears = good
     GUMMY_BEAR
 
 }

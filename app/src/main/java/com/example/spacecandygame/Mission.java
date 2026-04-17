@@ -13,7 +13,7 @@ public class Mission {
 
         //if member cannot enter battle based on their total XP:
         if (!member1.canEnterBattle() || !member2.canEnterBattle()) {
-            System.out.println("A member does not have enough XP to enter battle");
+            System.out.println("CrewMember does not have enough XP to enter battle");
             return;
         }
 

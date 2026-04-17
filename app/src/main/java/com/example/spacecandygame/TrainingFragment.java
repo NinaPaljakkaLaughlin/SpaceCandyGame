@@ -28,7 +28,7 @@ public class TrainingFragment extends Fragment {
     private Button startButton;
     private LinearLayout summaryLayout;
     private Random random = new Random();
-    private int totalWormsInSession = 0;
+    private int totalCandyInSession = 0;
     private int wormsProcessed = 0;
 
     public TrainingFragment() {
@@ -112,14 +112,14 @@ public class TrainingFragment extends Fragment {
         trainee.incrementTrainingSessions();
 
         int sourWormsCount = random.nextInt(6) + 5; // 5-10 sour worms
-        int sweetWormsCount = random.nextInt(4) + 3; // 3-6 sweet worms
-        totalWormsInSession = sourWormsCount + sweetWormsCount;
+        int hardCandyCount = random.nextInt(4) + 3; // 3-6 sweet worms
+        totalCandyInSession = sourWormsCount + hardCandyCount;
 
         for (int i = 0; i < sourWormsCount; i++) {
             spawnWorm(VillainType.SOUR_GUMMY_WORM);
         }
-        for (int i = 0; i < sweetWormsCount; i++) {
-            spawnWorm(VillainType.SWEET_GUMMY_WORM);
+        for (int i = 0; i < hardCandyCount; i++) {
+            spawnWorm(VillainType.HARD_CANDY);
         }
     }
 
@@ -147,7 +147,7 @@ public class TrainingFragment extends Fragment {
             worm.setY(startY);
 
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
-            animator.setDuration(3000 + random.nextInt(2000));
+            animator.setDuration(15000 + random.nextInt(2000));
             animator.setStartDelay(random.nextInt(2000));
             
             animator.addListener(new AnimatorListenerAdapter() {
@@ -182,7 +182,7 @@ public class TrainingFragment extends Fragment {
     }
 
     private void checkTrainingEnd() {
-        if (wormsProcessed >= totalWormsInSession) {
+        if (wormsProcessed >= totalCandyInSession) {
             showSummary();
         }
     }

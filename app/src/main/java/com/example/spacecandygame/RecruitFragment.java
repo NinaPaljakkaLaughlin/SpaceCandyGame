@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,22 +34,47 @@ public class RecruitFragment extends Fragment {
 
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button createButton = view.findViewById(R.id.createCharacterButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         EditText nameInput = view.findViewById(R.id.nameInput);
         EditText idInput = view.findViewById(R.id.idInput);
         Spinner typeSpinner = view.findViewById(R.id.typeSpinner);
         Spinner colorSpinner = view.findViewById(R.id.colorSpinner);
         TextView resultText = view.findViewById(R.id.resultText);
+        TextView descriptionText = view.findViewById(R.id.descriptionText);
 
-        //Dropdown options for choosing crew type during recruitment
-        String[] crewTypes = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON", "DOCTOR"};
+        // Simple names for the spinner
+        String[] crewTypeNames = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON", "DOCTOR"};
+        
+        // Detailed descriptions for each type
+        String[] crewTypeDescriptions = {
+                "SOLDIER- starting XP: 0, starting energy: 12, starting skill power: 1",
+                "ENGINEER- starting XP: 0, starting energy: 12, starting skill power: 1, special ability: can plant flowers to gain extra XP",
+                "SCIENTIST- starting XP: 0, starting energy: 12, starting skill power: 1, special ability: can pick flowers and create chemicals to use in training and battle arenas",
+                "DRAGON- starting XP: -10, starting energy: 12, starting skill power: 1, special abilities: can gain crew points in battle by attacking hard candies and gummy worms after reaching 60 XP",
+                "DOCTOR: starting XP: 0, starting energy: 12, starting skill power: 1, special abilities: gains XP from training arena and for every 10 XP can heal other crew members to full energy after battle drops their energy to 0"
+        };
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                crewTypes
+                crewTypeNames
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
+
+        // Listener to update description when a type is selected
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                descriptionText.setText(crewTypeDescriptions[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                descriptionText.setText("Select a type to see abilities");
+            }
+        });
 
         //Dropdown options for choosing character color during recruitment
         String[] colors = {"Pink", "Purple", "Yellow", "Green", "Blue", "Red", "Black"};
@@ -60,8 +86,12 @@ public class RecruitFragment extends Fragment {
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         colorSpinner.setAdapter(colorAdapter);
 
-        //Create a new crew member based on the entered data and selected type/color
+        // Navigation buttons
         startButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+        
+        cancelButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
@@ -86,9 +116,10 @@ public class RecruitFragment extends Fragment {
                 gameTracker.createScientist(id, name);
             } else if (selectedType.equals("DRAGON")) {
                 gameTracker.createDragon(id, name);
-            }else if (selectedType.equals("DOCTOR")) {
+            } else if (selectedType.equals("DOCTOR")) {
                 gameTracker.createDoctor(id, name);
             }
+
             //Get the most recently created crew member and assign the selected color
             List<CrewMember> list = gameTracker.getCrewList();
             if (!list.isEmpty()) {
