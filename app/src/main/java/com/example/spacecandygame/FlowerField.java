@@ -9,15 +9,15 @@ public class FlowerField {
     //Method for the engineer to plant flowers
     public void plantFlowers(CrewMember member) {
         if (member instanceof Engineer) {
-            ((Engineer) member).plantFlowers();
+            ((Engineer) member).plantFlower(); //fixed this part
         }
     }
+
     //Method for the scientist to pick flowers
     public void pickFlowers(CrewMember member) {
         if (member instanceof Scientist) {
             ((Scientist) member).pickFlowers();
         }
     }
-
 }
 

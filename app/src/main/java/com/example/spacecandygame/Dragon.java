@@ -28,7 +28,7 @@ public class Dragon extends CrewMember {
     @Override
     public int onTrainClick(VillainType target) {
         if (target == VillainType.SOUR_GUMMY_WORM) {
-            chemicals--;
+
             addXP(2);
         } else {
             takeTrainingDamage();
