@@ -15,7 +15,7 @@ public class DragonHouseFragment extends Fragment {
     private CrewMember selectedDragon;
 
     public DragonHouseFragment() {
-
+        // Required empty public constructor
     }
 
     @Override
@@ -31,18 +31,22 @@ public class DragonHouseFragment extends Fragment {
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button trainButton = view.findViewById(R.id.trainButton);
         Button battleButton = view.findViewById(R.id.battleButton);
+        Button sendToMedbayButton = view.findViewById(R.id.sendToMedbayButton);
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout dragonContainer = view.findViewById(R.id.soldierContainer);
 
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.DRAGON) {
-
                 Button dragonButton = new Button(getContext());
                 dragonButton.setText(crewMember.getName());
 
@@ -52,7 +56,8 @@ public class DragonHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
-                                    "\nEnergy: " + crewMember.getEnergy()
+                                    "\nEnergy: " + crewMember.getEnergy() +
+                                    "\nLocation: " + crewMember.getLocation()
                     );
                 });
 
@@ -62,14 +67,11 @@ public class DragonHouseFragment extends Fragment {
 
         trainButton.setOnClickListener(v -> {
             if (selectedDragon != null) {
-                selectedDragon.addXP(3);
-                statsText.setText(
-                        "Name: " + selectedDragon.getName() +
-                                "\nColor: " + selectedDragon.getColor() +
-                                "\nXP: " + selectedDragon.getXP() +
-                                "\nEnergy: " + selectedDragon.getEnergy() +
-                                "\nStatus: Trained"
-                );
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, new TrainingFragment())
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select a dragon first.");
             }
@@ -83,7 +85,24 @@ public class DragonHouseFragment extends Fragment {
                                 "\nColor: " + selectedDragon.getColor() +
                                 "\nXP: " + selectedDragon.getXP() +
                                 "\nEnergy: " + selectedDragon.getEnergy() +
+                                "\nLocation: " + selectedDragon.getLocation() +
                                 "\nStatus: Went to battle"
+                );
+            } else {
+                statsText.setText("Please select a dragon first.");
+            }
+        });
+
+        sendToMedbayButton.setOnClickListener(v -> {
+            if (selectedDragon != null) {
+                selectedDragon.setLocation(Location.MEDBAY);
+                statsText.setText(
+                        "Name: " + selectedDragon.getName() +
+                                "\nColor: " + selectedDragon.getColor() +
+                                "\nXP: " + selectedDragon.getXP() +
+                                "\nEnergy: " + selectedDragon.getEnergy() +
+                                "\nLocation: " + selectedDragon.getLocation() +
+                                "\nStatus: Sent to Medbay"
                 );
             } else {
                 statsText.setText("Please select a dragon first.");

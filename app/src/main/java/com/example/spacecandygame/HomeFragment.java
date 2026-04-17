@@ -1,6 +1,7 @@
 package com.example.spacecandygame;
 //AI use declaration: AI was used to generate the background image
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,7 @@ import androidx.fragment.app.Fragment;
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -30,10 +31,12 @@ public class HomeFragment extends Fragment {
         Button scientistHouseButton = view.findViewById(R.id.scientistHouseButton);
         Button engineerHouseButton = view.findViewById(R.id.engineerHouseButton);
         Button dragonHouseButton = view.findViewById(R.id.dragonHouseButton);
-        Button doctorHouseButton = view.findViewById(R.id.doctorHouseButton);
+        Button medbayButton = view.findViewById(R.id.medbayButton);
 
+        //  Go back to start
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().finish();
+            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
         });
 
         soldierHouseButton.setOnClickListener(v -> {
@@ -68,10 +71,10 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
-        doctorHouseButton.setOnClickListener(v -> {
+        medbayButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main, new DoctorHouseFragment())
+                    .replace(R.id.main, new MedbayFragment())
                     .addToBackStack(null)
                     .commit();
         });

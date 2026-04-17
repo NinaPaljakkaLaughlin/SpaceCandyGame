@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/soldierLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/homes">
@@ -10,7 +11,7 @@
         android:id="@+id/goToStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Start"
+        android:text="Go to Home"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +24,7 @@
         android:text="Soldier House"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="#000000"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +44,9 @@
         android:id="@+id/soldierStatsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Create and tap a soldier to see stats"
-        android:textSize="20sp"
+        android:text="Tap a soldier to see stats"
+        android:textSize="18sp"
+        android:textColor="#000000"
         android:layout_marginTop="320dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,5 +71,15 @@
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/trainButton" />
+
+    <Button
+        android:id="@+id/sendToMedbayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send to Medbay"
+        android:layout_marginTop="530dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

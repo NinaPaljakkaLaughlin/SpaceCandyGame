@@ -2,31 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scientistLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/homes">
+
 
     <Button
         android:id="@+id/goToStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Start"
+        android:text="Go to Home"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <TextView
-        android:id="@+id/soldierHouseTitle"
+        android:id="@+id/scientistHouseTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Soldier House"
+        android:text="Scientist House"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="#000000"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/soldierContainer"
@@ -38,35 +43,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <TextView
         android:id="@+id/soldierStatsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create and tap a soldier to see stats"
-        android:textSize="20sp"
+        android:text="Tap a scientist to see stats"
+        android:textSize="18sp"
+        android:textColor="#000000"
         android:layout_marginTop="320dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <Button
         android:id="@+id/trainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Train"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="430dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/battleButton" />
+
 
     <Button
         android:id="@+id/battleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Battle"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="430dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/trainButton" />
+
+
+    <Button
+        android:id="@+id/collectFlowerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Collect Flower"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/makePotionButton" />
+
+
+    <Button
+        android:id="@+id/makePotionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Potion"
+        android:layout_marginTop="500dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/collectFlowerButton" />
+
+
+    <Button
+        android:id="@+id/sendToMedbayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send to Medbay"
+        android:layout_marginTop="570dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

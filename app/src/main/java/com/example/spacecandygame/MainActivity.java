@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button homeButton = findViewById(R.id.goToHomeButton);
-        Button medbayButton = findViewById(R.id.medbayButton);
-        Button recruitButton = findViewById(R.id.recruitButton);
 
+        Button recruitButton = findViewById(R.id.recruitButton);
+        //Button to Open home screen
         homeButton.setOnClickListener(v -> {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -40,19 +40,20 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
-
-        medbayButton.setOnClickListener(v -> {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main, new MedbayFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
-
+       // removed the button to go to medbay
+        //Button to go to recruit
         recruitButton.setOnClickListener(v -> {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main, new RecruitFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+        Button rulesButton = findViewById(R.id.rulesButton);
+        rulesButton.setOnClickListener(v -> {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new RulesFragment())
                     .addToBackStack(null)
                     .commit();
         });

@@ -14,9 +14,7 @@ public class ScientistHouseFragment extends Fragment {
 
     private CrewMember selectedScientist;
 
-    public ScientistHouseFragment() {
-
-    }
+    public ScientistHouseFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,11 +29,19 @@ public class ScientistHouseFragment extends Fragment {
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button trainButton = view.findViewById(R.id.trainButton);
         Button battleButton = view.findViewById(R.id.battleButton);
+        Button collectFlowerButton = view.findViewById(R.id.collectFlowerButton);
+        Button makePotionButton = view.findViewById(R.id.makePotionButton);
+        Button sendToMedbayButton = view.findViewById(R.id.sendToMedbayButton);
+
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout scientistContainer = view.findViewById(R.id.soldierContainer);
 
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         GameTracker gameTracker = MainActivity.getGameTracker();
@@ -50,7 +56,6 @@ public class ScientistHouseFragment extends Fragment {
                     selectedScientist = crewMember;
                     statsText.setText(
                             "Name: " + crewMember.getName() +
-                                    "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
                                     "\nEnergy: " + crewMember.getEnergy()
                     );
@@ -60,31 +65,58 @@ public class ScientistHouseFragment extends Fragment {
             }
         }
 
+        // TRAIN
         trainButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                selectedScientist.addXP(3);
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, new TrainingFragment())
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                statsText.setText("Please select a scientist first.");
+            }
+        });
+
+        // BATTLE
+        battleButton.setOnClickListener(v -> {
+            if (selectedScientist != null) {
+                selectedScientist.takeBattleDamage();
                 statsText.setText(
                         "Name: " + selectedScientist.getName() +
-                                "\nColor: " + selectedScientist.getColor() +
-                                "\nXP: " + selectedScientist.getXP() +
                                 "\nEnergy: " + selectedScientist.getEnergy() +
-                                "\nStatus: Trained"
+                                "\nStatus: Went to battle"
                 );
             } else {
                 statsText.setText("Please select a scientist first.");
             }
         });
 
-        battleButton.setOnClickListener(v -> {
+        // COLLECT FLOWERS
+        collectFlowerButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
-                selectedScientist.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedScientist.getName() +
-                                "\nColor: " + selectedScientist.getColor() +
-                                "\nXP: " + selectedScientist.getXP() +
-                                "\nEnergy: " + selectedScientist.getEnergy() +
-                                "\nStatus: Went to battle"
-                );
+                ((Scientist) selectedScientist).pickFlowers();
+                statsText.setText("Collected flowers!");
+            } else {
+                statsText.setText("Please select a scientist first.");
+            }
+        });
+
+        // MAKE POTION
+        makePotionButton.setOnClickListener(v -> {
+            if (selectedScientist != null) {
+                ((Scientist) selectedScientist).makeChemical();
+                statsText.setText("Potion created!");
+            } else {
+                statsText.setText("Please select a scientist first.");
+            }
+        });
+
+        // MEDBAY
+        sendToMedbayButton.setOnClickListener(v -> {
+            if (selectedScientist != null) {
+                selectedScientist.setLocation(Location.MEDBAY);
+                statsText.setText("Sent to Medbay");
             } else {
                 statsText.setText("Please select a scientist first.");
             }

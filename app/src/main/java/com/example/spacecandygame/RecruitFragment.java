@@ -40,7 +40,8 @@ public class RecruitFragment extends Fragment {
         Spinner colorSpinner = view.findViewById(R.id.colorSpinner);
         TextView resultText = view.findViewById(R.id.resultText);
 
-        String[] crewTypes = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON"};
+        //Dropdown options for choosing crew type during recruitment
+        String[] crewTypes = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON", "DOCTOR"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -49,6 +50,7 @@ public class RecruitFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
 
+        //Dropdown options for choosing character color during recruitment
         String[] colors = {"Pink", "Purple", "Yellow", "Green", "Blue", "Red", "Black"};
         ArrayAdapter<String> colorAdapter = new ArrayAdapter<>(
                 requireContext(),
@@ -58,6 +60,7 @@ public class RecruitFragment extends Fragment {
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         colorSpinner.setAdapter(colorAdapter);
 
+        //Create a new crew member based on the entered data and selected type/color
         startButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
@@ -83,8 +86,10 @@ public class RecruitFragment extends Fragment {
                 gameTracker.createScientist(id, name);
             } else if (selectedType.equals("DRAGON")) {
                 gameTracker.createDragon(id, name);
+            }else if (selectedType.equals("DOCTOR")) {
+                gameTracker.createDoctor(id, name);
             }
-
+            //Get the most recently created crew member and assign the selected color
             List<CrewMember> list = gameTracker.getCrewList();
             if (!list.isEmpty()) {
                 CrewMember newMember = list.get(list.size() - 1);

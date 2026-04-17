@@ -14,9 +14,7 @@ public class EngineerHouseFragment extends Fragment {
 
     private CrewMember selectedEngineer;
 
-    public EngineerHouseFragment() {
-        // Required empty public constructor
-    }
+    public EngineerHouseFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,11 +29,18 @@ public class EngineerHouseFragment extends Fragment {
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button trainButton = view.findViewById(R.id.trainButton);
         Button battleButton = view.findViewById(R.id.battleButton);
+        Button plantFlowerButton = view.findViewById(R.id.plantFlowerButton);
+        Button sendToMedbayButton = view.findViewById(R.id.sendToMedbayButton);
+
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout engineerContainer = view.findViewById(R.id.soldierContainer);
 
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         GameTracker gameTracker = MainActivity.getGameTracker();
@@ -60,30 +65,56 @@ public class EngineerHouseFragment extends Fragment {
             }
         }
 
+        // TRAIN
         trainButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
-                selectedEngineer.addXP(3);
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, new TrainingFragment())
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                statsText.setText("Please select an engineer first.");
+            }
+        });
+
+        // BATTLE
+        battleButton.setOnClickListener(v -> {
+            if (selectedEngineer != null) {
+                selectedEngineer.takeBattleDamage();
                 statsText.setText(
                         "Name: " + selectedEngineer.getName() +
-                                "\nColor: " + selectedEngineer.getColor() +
                                 "\nXP: " + selectedEngineer.getXP() +
                                 "\nEnergy: " + selectedEngineer.getEnergy() +
-                                "\nStatus: Trained"
+                                "\nStatus: Went to battle"
                 );
             } else {
                 statsText.setText("Please select an engineer first.");
             }
         });
 
-        battleButton.setOnClickListener(v -> {
+        // PLANT FLOWER
+        plantFlowerButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
-                selectedEngineer.takeBattleDamage();
+                ((Engineer) selectedEngineer).plantFlower();
                 statsText.setText(
                         "Name: " + selectedEngineer.getName() +
-                                "\nColor: " + selectedEngineer.getColor() +
                                 "\nXP: " + selectedEngineer.getXP() +
-                                "\nEnergy: " + selectedEngineer.getEnergy() +
-                                "\nStatus: Went to battle"
+                                "\nStatus: Planted Flower"
+                );
+            } else {
+                statsText.setText("Please select an engineer first.");
+            }
+        });
+
+        // MEDBAY
+        sendToMedbayButton.setOnClickListener(v -> {
+            if (selectedEngineer != null) {
+                selectedEngineer.setLocation(Location.MEDBAY);
+                statsText.setText(
+                        "Name: " + selectedEngineer.getName() +
+                                "\nLocation: " + selectedEngineer.getLocation() +
+                                "\nStatus: Sent to Medbay"
                 );
             } else {
                 statsText.setText("Please select an engineer first.");

@@ -5,7 +5,7 @@ import java.util.*;
 
 //AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
 //within the code once written. No code has been written by AI or copy-pasted from an AI source.
-
+//ChatGPT was used to solve merge conflicts
 public abstract class CrewMember {
     //Attributes
     private String id; //get ID, ID set when crew member is made

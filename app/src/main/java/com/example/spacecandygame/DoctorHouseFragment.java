@@ -29,13 +29,16 @@ public class DoctorHouseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button startButton = view.findViewById(R.id.goToStartButton);
-        Button trainButton = view.findViewById(R.id.trainButton);
-        Button battleButton = view.findViewById(R.id.battleButton);
+        Button healButton = view.findViewById(R.id.healButton);
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout doctorContainer = view.findViewById(R.id.soldierContainer);
 
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         GameTracker gameTracker = MainActivity.getGameTracker();
@@ -60,30 +63,15 @@ public class DoctorHouseFragment extends Fragment {
             }
         }
 
-        trainButton.setOnClickListener(v -> {
+        healButton.setOnClickListener(v -> {
             if (selectedDoctor != null) {
-                selectedDoctor.addXP(3);
+                selectedDoctor.healed();
                 statsText.setText(
                         "Name: " + selectedDoctor.getName() +
                                 "\nColor: " + selectedDoctor.getColor() +
                                 "\nXP: " + selectedDoctor.getXP() +
                                 "\nEnergy: " + selectedDoctor.getEnergy() +
-                                "\nStatus: Trained"
-                );
-            } else {
-                statsText.setText("Please select a doctor first.");
-            }
-        });
-
-        battleButton.setOnClickListener(v -> {
-            if (selectedDoctor != null) {
-                selectedDoctor.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedDoctor.getName() +
-                                "\nColor: " + selectedDoctor.getColor() +
-                                "\nXP: " + selectedDoctor.getXP() +
-                                "\nEnergy: " + selectedDoctor.getEnergy() +
-                                "\nStatus: Went to battle"
+                                "\nStatus: Healed"
                 );
             } else {
                 statsText.setText("Please select a doctor first.");

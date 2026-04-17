@@ -70,10 +70,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/doctorHouseButton"
+        android:id="@+id/medbayButton"
         android:layout_width="110dp"
         android:layout_height="70dp"
-        android:text="Doctor"
+        android:text="Medbay"
         android:alpha="0.8"
         android:backgroundTint="#7E57C2"
         android:textColor="#FFFFFF"

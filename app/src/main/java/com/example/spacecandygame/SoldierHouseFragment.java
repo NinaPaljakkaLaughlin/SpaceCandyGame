@@ -31,13 +31,17 @@ public class SoldierHouseFragment extends Fragment {
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button trainButton = view.findViewById(R.id.trainButton);
         Button battleButton = view.findViewById(R.id.battleButton);
+        Button sendToMedbayButton = view.findViewById(R.id.sendToMedbayButton);
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout soldierContainer = view.findViewById(R.id.soldierContainer);
 
         startButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
-
         GameTracker gameTracker = MainActivity.getGameTracker();
 
         for (CrewMember crewMember : gameTracker.getCrewList()) {
@@ -51,7 +55,8 @@ public class SoldierHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
-                                    "\nEnergy: " + crewMember.getEnergy()
+                                    "\nEnergy: " + crewMember.getEnergy() +
+                                    "\nLocation: " + crewMember.getLocation()
                     );
                 });
 
@@ -61,14 +66,11 @@ public class SoldierHouseFragment extends Fragment {
 
         trainButton.setOnClickListener(v -> {
             if (selectedSoldier != null) {
-                selectedSoldier.addXP(3);
-                statsText.setText(
-                        "Name: " + selectedSoldier.getName() +
-                                "\nColor: " + selectedSoldier.getColor() +
-                                "\nXP: " + selectedSoldier.getXP() +
-                                "\nEnergy: " + selectedSoldier.getEnergy() +
-                                "\nStatus: Trained"
-                );
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, new TrainingFragment())
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select a soldier first.");
             }
@@ -82,7 +84,24 @@ public class SoldierHouseFragment extends Fragment {
                                 "\nColor: " + selectedSoldier.getColor() +
                                 "\nXP: " + selectedSoldier.getXP() +
                                 "\nEnergy: " + selectedSoldier.getEnergy() +
+                                "\nLocation: " + selectedSoldier.getLocation() +
                                 "\nStatus: Went to battle"
+                );
+            } else {
+                statsText.setText("Please select a soldier first.");
+            }
+        });
+
+        sendToMedbayButton.setOnClickListener(v -> {
+            if (selectedSoldier != null) {
+                selectedSoldier.setLocation(Location.MEDBAY);
+                statsText.setText(
+                        "Name: " + selectedSoldier.getName() +
+                                "\nColor: " + selectedSoldier.getColor() +
+                                "\nXP: " + selectedSoldier.getXP() +
+                                "\nEnergy: " + selectedSoldier.getEnergy() +
+                                "\nLocation: " + selectedSoldier.getLocation() +
+                                "\nStatus: Sent to Medbay"
                 );
             } else {
                 statsText.setText("Please select a soldier first.");
