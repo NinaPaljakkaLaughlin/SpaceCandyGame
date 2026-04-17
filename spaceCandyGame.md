@@ -54,7 +54,7 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
     - SoldierHouseFragment
     - SpecialStuff
       
-      written by Özde
+      written in collaboration
     - HomeFragment
     - RecruitFragment
       
