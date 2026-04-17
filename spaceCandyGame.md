@@ -1,25 +1,28 @@
 SPACE CANDY GAME DOCUMENTATION
 ******************************************************************************************************
-Group Name: NOP\n
-Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)\n
+Group Name: NOP
+Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
 ******************************************************************************************************
-- Project Description: CandyWorld Battle\n
+- Project Description: CandyWorld Battle
   *
 
   *
 ******************************************************************************************************
-- Class Diagram: (source)\n
+- Class Diagram: (source)
 ******************************************************************************************************
-- Divison of Work\n
+- Divison of Work
   *
-    Project Plan Documentation:\n
-    - Implementation Plan: written by Nina\n
-    - Features: written by Özde\n
-    - User Interface Description: written by Satarupa\n
-    - Plan UML: created by Özde, Nina, and Satarupa\n
-  Backend Code\n
-      written by Nina\n
-    - CrewMember\n
+    Project Plan Documentation:
+  
+    - Implementation Plan: written by Nina
+    - Features: written by Özde
+    - User Interface Description: written by Satarupa
+    - Plan UML: created by Özde, Nina, and Satarupa
+ 
+  Backend Code
+
+      written by Nina
+    - CrewMember
     - CrewMemberAdapter
     - CrewStatsFragment
     - CrewType
@@ -54,6 +57,7 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)\n
     - RecruitFragment
       
   Frontend Code
+  
       written by Nina
     - fragment_crew_stats
     - fragment_training
@@ -75,5 +79,6 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)\n
   *
 ******************************************************************************************************
 - Implemented Features
+
 ******************************************************************************************************
 
