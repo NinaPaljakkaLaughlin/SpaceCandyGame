@@ -2,7 +2,7 @@
 
 🎮 About the Game
 
-CandyLand Adventure is a vibrant game where players explore a sugary world filled with:
+CandyWorld Battle is a vibrant game where players explore a sugary world filled with:
 
 🍬 Strategic character gameplay for maximizing team points
 🍭 Training and battles with sweet enemies
