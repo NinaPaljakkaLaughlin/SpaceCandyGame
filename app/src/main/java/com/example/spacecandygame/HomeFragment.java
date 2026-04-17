@@ -27,16 +27,26 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button startButton = view.findViewById(R.id.goToStartButton);
+        Button crewStatsButton = view.findViewById(R.id.viewStatsButton);
         Button soldierHouseButton = view.findViewById(R.id.soldierHouseButton);
         Button scientistHouseButton = view.findViewById(R.id.scientistHouseButton);
         Button engineerHouseButton = view.findViewById(R.id.engineerHouseButton);
         Button dragonHouseButton = view.findViewById(R.id.dragonHouseButton);
         Button medbayButton = view.findViewById(R.id.medbayButton);
 
+
         //  Go back to start
         startButton.setOnClickListener(v -> {
             requireActivity().finish();
             requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+        });
+
+        crewStatsButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new CrewStatsFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         soldierHouseButton.setOnClickListener(v -> {
