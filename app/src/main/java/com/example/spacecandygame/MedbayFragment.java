@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 public class MedbayFragment extends Fragment {
 
     private CrewMember selectedCrewMember;
+    private Doctor doctor;
 
     public MedbayFragment() {
         // Required empty public constructor
@@ -30,6 +31,7 @@ public class MedbayFragment extends Fragment {
 
         Button startButton = view.findViewById(R.id.goToStartButton);
         Button healButton = view.findViewById(R.id.healButton);
+        Button trainDoctorButton = view.findViewById(R.id.trainDoctorButton);
         TextView statsText = view.findViewById(R.id.medbayStatsText);
         LinearLayout medbayContainer = view.findViewById(R.id.medbayContainer);
 
@@ -45,6 +47,11 @@ public class MedbayFragment extends Fragment {
         GameTracker gameTracker = MainActivity.getGameTracker();
 
         for (CrewMember crewMember : gameTracker.getCrewList()) {
+            if (crewMember.getCrewType() == CrewType.DOCTOR) {
+                doctor = (Doctor) crewMember;
+                doctor.setLocation(Location.MEDBAY);
+            }
+
             if (crewMember.getLocation() == Location.MEDBAY) {
                 Button crewButton = new Button(getContext());
                 crewButton.setText(crewMember.getName());
@@ -65,10 +72,49 @@ public class MedbayFragment extends Fragment {
             }
         }
 
+        trainDoctorButton.setOnClickListener(v -> {
+            if (doctor != null) {
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, TrainingFragment.newInstance(doctor.getId()))
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                statsText.setText("Doctor not found.");
+            }
+        });
+
         healButton.setOnClickListener(v -> {
-            if (selectedCrewMember != null) {
-                selectedCrewMember.healed();
+            if (doctor == null) {
+                statsText.setText("Doctor not found.");
+                return;
+            }
+
+            if (selectedCrewMember == null) {
+                statsText.setText("Please select a crew member first.");
+                return;
+            }
+
+            if (selectedCrewMember.getCrewType() == CrewType.DOCTOR) {
+                statsText.setText("Doctor cannot heal themselves.");
+                return;
+            }
+
+            if (!selectedCrewMember.hasNoEnergy()) {
+                statsText.setText("This crew member does not need healing yet.");
+                return;
+            }
+
+            if (!doctor.canHeal()) {
+                statsText.setText("Doctor does not have enough XP heals available.");
+                return;
+            }
+
+            boolean healed = doctor.healCrewMember(selectedCrewMember);
+
+            if (healed) {
                 selectedCrewMember.setLocation(Location.QUARTERS);
+                doctor.setLocation(Location.MEDBAY);
 
                 statsText.setText(
                         "Name: " + selectedCrewMember.getName() +
@@ -77,10 +123,11 @@ public class MedbayFragment extends Fragment {
                                 "\nXP: " + selectedCrewMember.getXP() +
                                 "\nEnergy: " + selectedCrewMember.getEnergy() +
                                 "\nLocation: " + selectedCrewMember.getLocation() +
-                                "\nStatus: Healed and returned to Quarters"
+                                "\nStatus: Healed by doctor" +
+                                "\nDoctor heals left: " + doctor.getRemainingHeals()
                 );
             } else {
-                statsText.setText("Please select a crew member first.");
+                statsText.setText("Healing failed.");
             }
         });
     }

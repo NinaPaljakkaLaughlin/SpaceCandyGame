@@ -58,9 +58,9 @@ public class ScientistHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
+                                    "\nSkillPower: " + crewMember.getSkillPower() +
                                     "\nEnergy: " + crewMember.getEnergy() +
                                     "\nLocation: " + crewMember.getLocation()
-
                     );
                 });
 
