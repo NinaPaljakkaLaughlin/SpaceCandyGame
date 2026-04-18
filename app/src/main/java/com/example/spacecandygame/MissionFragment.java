@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class MissionFragment extends Fragment {
     private LinearLayout summaryLayout;
     private Random random = new Random();
     private int villainsProcessed = 0;
+    private ProgressBar progressBarCrewPoints;
     
     private boolean isWarrior1Turn = true;
     private Threat currentThreat;
@@ -191,6 +193,12 @@ public class MissionFragment extends Fragment {
 
             animator.start();
         });
+    }
+
+    public void updateProgressBar(int crewPointsGainedSession) {
+        if (progressBarCrewPoints != null) {
+            progressBarCrewPoints.setProgress(crewPointsGainedSession);
+        }
     }
 
     private void switchTurn() {

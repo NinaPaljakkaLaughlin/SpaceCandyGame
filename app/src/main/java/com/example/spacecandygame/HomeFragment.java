@@ -32,11 +32,20 @@ public class HomeFragment extends Fragment {
         Button engineerHouseButton = view.findViewById(R.id.engineerHouseButton);
         Button dragonHouseButton = view.findViewById(R.id.dragonHouseButton);
         Button medbayButton = view.findViewById(R.id.medbayButton);
+        Button viewStatsButton = view.findViewById(R.id.viewStatsButton);
 
         // Go back to start
         startButton.setOnClickListener(v -> {
             requireActivity().finish();
             requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+        });
+
+        viewStatsButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new CrewStatsFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         soldierHouseButton.setOnClickListener(v -> {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class TrainingFragment extends Fragment {
     private Random random = new Random();
     private int totalCandyInSession = 0;
     private int wormsProcessed = 0;
+    private ProgressBar progressBarXP;
 
     public TrainingFragment() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class TrainingFragment extends Fragment {
         Button backButton = view.findViewById(R.id.backButton);
         summaryLayout = view.findViewById(R.id.summaryLayout);
         TextView nameText = view.findViewById(R.id.crewMemberName);
+        progressBarXP = view.findViewById(R.id.progressBarXP);
 
         // Find trainee from GameTracker
         GameTracker tracker = MainActivity.getGameTracker();
@@ -81,6 +84,7 @@ public class TrainingFragment extends Fragment {
         if (trainee != null) {
             nameText.setText("Trainee: " + trainee.getName() + " (" + trainee.getCrewType() + ")");
             trainee.setLocation(Location.TRAINING);
+            updateXpBar(trainee.getXP());
         } else {
             nameText.setText("No trainee selected.");
             startButton.setEnabled(false);
@@ -127,11 +131,11 @@ public class TrainingFragment extends Fragment {
     private void spawnWorm(VillainType type) {
         TextView worm = new TextView(getContext());
         if (type == VillainType.SOUR_GUMMY_WORM) {
-            worm.setText("🐛"); // Sour worm
-            worm.setTextColor(0xFF00FF00); // Green for sour
+            worm.setText("🐛");
+            worm.setTextColor(0xFF00FF00);
         } else {
-            worm.setText("🍬"); // Sweet worm
-            worm.setTextColor(0xFFFF00FF); // Pink for sweet
+            worm.setText("🍬");
+            worm.setTextColor(0xFFFF00FF);
         }
         worm.setTextSize(40);
 
@@ -139,23 +143,16 @@ public class TrainingFragment extends Fragment {
             int arenaWidth = trainingArena.getWidth();
             int arenaHeight = trainingArena.getHeight();
             
-            if (arenaHeight <= 0) arenaHeight = 800; // Fallback
+            if (arenaHeight <= 0) arenaHeight = 800;
 
-            // SPREAD OUT: Use full height of the arena, and wider start/end range
             int startY = random.nextInt(Math.max(1, arenaHeight - 120));
             trainingArena.addView(worm);
             
-            worm.setX(-300); // Start further off-screen
+            worm.setX(-300);
             worm.setY(startY);
 
-            ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
-            animator.setDuration(15000 + random.nextInt(2000));
-            animator.setStartDelay(random.nextInt(2000));
-            // SLOWER: Increased duration for slower movement
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -300f, (float) arenaWidth + 300f);
-            animator.setDuration(12000 + random.nextInt(8000)); // 12-20 seconds per item
-            
-            // SPREAD OUT IN TIME: More variation in start delays
+            animator.setDuration(12000 + random.nextInt(8000));
             animator.setStartDelay(random.nextInt(18000));
             
             animator.addListener(new AnimatorListenerAdapter() {
@@ -179,6 +176,7 @@ public class TrainingFragment extends Fragment {
                     trainee.takeTrainingDamage(); // Losing XP
                     xpLostSession += Math.abs(trainee.getXP() - oldXP);
                 }
+                updateXpBar(trainee.getXP());
                 trainingArena.removeView(worm);
                 animator.cancel();
                 wormsProcessed++;
@@ -187,6 +185,12 @@ public class TrainingFragment extends Fragment {
 
             animator.start();
         });
+    }
+
+    public void updateXpBar(int xp) {
+        if (progressBarXP != null) {
+            progressBarXP.setProgress(xp);
+        }
     }
 
     private void checkTrainingEnd() {
