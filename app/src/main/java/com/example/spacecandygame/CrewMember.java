@@ -113,7 +113,6 @@ public abstract class CrewMember {
 
     private void updateSkillPower() {
         // Skill power increases by 1 for every 50 XP gained.
-
         if (XP < 0) {
             skillPower = 1;
         } else {
@@ -152,6 +151,7 @@ public abstract class CrewMember {
     //Method for healing energy by the doctor (energy can only be increased from going to the medbay for healing by the doctor)
     public void healed() {
         this.energy = this.maxEnergy;
+        setLocation(Location.QUARTERS);
     }
 
     //Method for character ability to enter battle
@@ -187,12 +187,14 @@ public abstract class CrewMember {
         if (newLocation == Location.BATTLE && this.location != Location.BATTLE) {
             countMissions();
         }
-        if (newLocation == Location.QUARTERS) {
+
+        // Only restore energy in quarters if the crew member still has energy
+        if (newLocation == Location.QUARTERS && energy > 0) {
             energy = maxEnergy;
         }
+
         this.location = newLocation;
     }
-
 
     //Method for acting during gameplay, training arena and battle arena
     public abstract int crewMemberAction(VillainType target);
