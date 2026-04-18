@@ -1,5 +1,6 @@
 package com.example.spacecandygame;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DragonHouseFragment extends Fragment {
 
@@ -79,19 +83,45 @@ public class DragonHouseFragment extends Fragment {
         });
 
         battleButton.setOnClickListener(v -> {
-            if (selectedDragon != null) {
-                selectedDragon.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedDragon.getName() +
-                                "\nColor: " + selectedDragon.getColor() +
-                                "\nXP: " + selectedDragon.getXP() +
-                                "\nEnergy: " + selectedDragon.getEnergy() +
-                                "\nLocation: " + selectedDragon.getLocation() +
-                                "\nStatus: Went to battle"
-                );
-            } else {
+            if (selectedDragon == null) {
                 statsText.setText("Please select a dragon first.");
+                return;
             }
+            if (!selectedDragon.canEnterBattle()) {
+                statsText.setText(selectedDragon.getName() + " needs 50 XP to enter battle!");
+                return;
+            }
+
+            // Pop up to select second player
+            List<CrewMember> availableOthers = new ArrayList<>();
+            for (CrewMember m : gameTracker.getCrewList()) {
+                if (m != selectedDragon && m.canEnterBattle() && m.getEnergy() > 0) {
+                    availableOthers.add(m);
+                }
+            }
+
+            if (availableOthers.isEmpty()) {
+                statsText.setText("No other crew members are ready for battle (need 50 XP and energy).");
+                return;
+            }
+
+            String[] otherNames = new String[availableOthers.size()];
+            for (int i = 0; i < availableOthers.size(); i++) {
+                otherNames[i] = availableOthers.get(i).getName() + " (" + availableOthers.get(i).getCrewType() + ")";
+            }
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Select Second Crew Member")
+                    .setItems(otherNames, (dialog, which) -> {
+                        CrewMember secondPlayer = availableOthers.get(which);
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main, MissionFragment.newInstance(selectedDragon.getId(), secondPlayer.getId()))
+                                .addToBackStack(null)
+                                .commit();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
 
         sendToMedbayButton.setOnClickListener(v -> {
