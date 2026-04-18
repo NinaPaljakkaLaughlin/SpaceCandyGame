@@ -139,8 +139,9 @@ public abstract class CrewMember {
     //Method for taking damage in battle (battle damage decreases energy, energy cannot go negative)
     public void takeBattleDamage() {
         energy -= getDamageAmount();
-        if (energy < 0) {
+        if (energy <= 0) {
             energy = 0;
+            setLocation(Location.MEDBAY);
         }
     }
 
@@ -193,10 +194,6 @@ public abstract class CrewMember {
         this.location = newLocation;
     }
 
-    //Method for moving characters to different locations
-    public void moveCrewMember(Location newLocation) {
-        this.location = newLocation;
-    }
 
     //Method for acting during gameplay, training arena and battle arena
     public abstract int crewMemberAction(VillainType target);

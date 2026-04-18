@@ -32,7 +32,7 @@ public class TrainingFragment extends Fragment {
     private int wormsProcessed = 0;
 
     public TrainingFragment() {
-
+        // Required empty public constructor
     }
 
     public static TrainingFragment newInstance(String crewMemberId) {
@@ -80,12 +80,7 @@ public class TrainingFragment extends Fragment {
 
         if (trainee != null) {
             nameText.setText("Trainee: " + trainee.getName() + " (" + trainee.getCrewType() + ")");
-
-            if (trainee.getCrewType() == CrewType.DOCTOR) {
-                trainee.setLocation(Location.MEDBAY);
-            } else {
-                trainee.setLocation(Location.TRAINING);
-            }
+            trainee.setLocation(Location.TRAINING);
         } else {
             nameText.setText("No trainee selected.");
             startButton.setEnabled(false);
@@ -95,11 +90,7 @@ public class TrainingFragment extends Fragment {
 
         backButton.setOnClickListener(v -> {
             if (trainee != null) {
-                if (trainee.getCrewType() == CrewType.DOCTOR) {
-                    trainee.setLocation(Location.MEDBAY);
-                } else {
-                    trainee.setLocation(Location.QUARTERS);
-                }
+                trainee.setLocation(Location.QUARTERS);
             }
             requireActivity().getSupportFragmentManager().popBackStack();
         });
@@ -146,19 +137,19 @@ public class TrainingFragment extends Fragment {
         trainingArena.post(() -> {
             int arenaWidth = trainingArena.getWidth();
             int arenaHeight = trainingArena.getHeight();
-
+            
             if (arenaHeight <= 0) arenaHeight = 500; // Fallback
 
             int startY = random.nextInt(Math.max(1, arenaHeight - 150));
             trainingArena.addView(worm);
-
+            
             worm.setX(-200);
             worm.setY(startY);
 
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
             animator.setDuration(15000 + random.nextInt(2000));
             animator.setStartDelay(random.nextInt(2000));
-
+            
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
