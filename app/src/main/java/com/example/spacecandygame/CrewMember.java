@@ -79,20 +79,20 @@ public abstract class CrewMember {
         return resilience;
     }
 
-    //Method for taking damage in training (training damage decreases XP)
     //Method for getting the amount of damage (note: XP can go negative)
     public int getDamageAmount() {
         int damage;
         if (resilience == 10) {
-            damage = 2;
+            damage = 1;
         } else if (resilience == 8) {
-            damage = 3;
+            damage = 2;
         } else {
-            damage = 4;
+            damage = 3;
         }
         return damage;
     }
 
+    //Method for taking damage in training (training damage decreases XP)
     public void takeTrainingDamage() {
         XP -= getDamageAmount();
         updateSkillPower();
@@ -106,8 +106,7 @@ public abstract class CrewMember {
 
     private void updateSkillPower() {
         // Skill power increases by 1 for every 50 XP gained.
-        // Assuming base skill power is 1 and it depends on total XP.
-        // If XP is negative, skill power might drop or stay at 1.
+
         if (XP < 0) {
             skillPower = 1;
         } else {

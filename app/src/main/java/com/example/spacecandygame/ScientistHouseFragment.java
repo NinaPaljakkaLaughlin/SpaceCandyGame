@@ -1,5 +1,6 @@
 package com.example.spacecandygame;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScientistHouseFragment extends Fragment {
 
@@ -83,16 +87,45 @@ public class ScientistHouseFragment extends Fragment {
 
         // BATTLE
         battleButton.setOnClickListener(v -> {
-            if (selectedScientist != null) {
-                selectedScientist.takeBattleDamage();
-                statsText.setText(
-                        "Name: " + selectedScientist.getName() +
-                                "\nEnergy: " + selectedScientist.getEnergy() +
-                                "\nStatus: Went to battle"
-                );
-            } else {
+            if (selectedScientist == null) {
                 statsText.setText("Please select a scientist first.");
+                return;
             }
+            if (!selectedScientist.canEnterBattle()) {
+                statsText.setText(selectedScientist.getName() + " needs 50 XP to enter battle!");
+                return;
+            }
+
+            // Pop up to select second player
+            List<CrewMember> availableOthers = new ArrayList<>();
+            for (CrewMember m : gameTracker.getCrewList()) {
+                if (m != selectedScientist && m.canEnterBattle() && m.getEnergy() > 0) {
+                    availableOthers.add(m);
+                }
+            }
+
+            if (availableOthers.isEmpty()) {
+                statsText.setText("No other crew members are ready for battle (need 50 XP and energy).");
+                return;
+            }
+
+            String[] otherNames = new String[availableOthers.size()];
+            for (int i = 0; i < availableOthers.size(); i++) {
+                otherNames[i] = availableOthers.get(i).getName() + " (" + availableOthers.get(i).getCrewType() + ")";
+            }
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Select Second Crew Member")
+                    .setItems(otherNames, (dialog, which) -> {
+                        CrewMember secondPlayer = availableOthers.get(which);
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main, MissionFragment.newInstance(selectedScientist.getId(), secondPlayer.getId()))
+                                .addToBackStack(null)
+                                .commit();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
 
         // COLLECT FLOWERS
