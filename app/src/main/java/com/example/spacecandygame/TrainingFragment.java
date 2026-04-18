@@ -111,8 +111,9 @@ public class TrainingFragment extends Fragment {
         wormsProcessed = 0;
         trainee.incrementTrainingSessions();
 
-        int sourWormsCount = random.nextInt(6) + 5; // 5-10 sour worms
-        int hardCandyCount = random.nextInt(4) + 3; // 3-6 sweet worms
+
+        int sourWormsCount = random.nextInt(10) + 12;
+        int hardCandyCount = random.nextInt(8) + 8;
         totalCandyInSession = sourWormsCount + hardCandyCount;
 
         for (int i = 0; i < sourWormsCount; i++) {
@@ -138,17 +139,24 @@ public class TrainingFragment extends Fragment {
             int arenaWidth = trainingArena.getWidth();
             int arenaHeight = trainingArena.getHeight();
             
-            if (arenaHeight <= 0) arenaHeight = 500; // Fallback
+            if (arenaHeight <= 0) arenaHeight = 800; // Fallback
 
-            int startY = random.nextInt(Math.max(1, arenaHeight - 150));
+            // SPREAD OUT: Use full height of the arena, and wider start/end range
+            int startY = random.nextInt(Math.max(1, arenaHeight - 120));
             trainingArena.addView(worm);
             
-            worm.setX(-200);
+            worm.setX(-300); // Start further off-screen
             worm.setY(startY);
 
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
             animator.setDuration(15000 + random.nextInt(2000));
             animator.setStartDelay(random.nextInt(2000));
+            // SLOWER: Increased duration for slower movement
+            ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -300f, (float) arenaWidth + 300f);
+            animator.setDuration(12000 + random.nextInt(8000)); // 12-20 seconds per item
+            
+            // SPREAD OUT IN TIME: More variation in start delays
+            animator.setStartDelay(random.nextInt(18000));
             
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override

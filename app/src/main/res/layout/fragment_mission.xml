@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/training">
+
+    <TextView
+        android:id="@+id/battleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Battle Arena"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/crewMemberName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crew Member: None"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/battleTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/crewMemberName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crew Member: None"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/crewMemberName1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/battleArena"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:background="#44000000"
+        app:layout_constraintTop_toBottomOf="@id/crewMemberName2"
+        app:layout_constraintBottom_toTopOf="@id/startButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!-- Gummy worms will be added here programmatically -->
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Battle"
+        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Quarters"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Summary Overlay -->
+    <LinearLayout
+        android:id="@+id/summaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Battle Summary"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/summaryCrewPointsGained"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XP Gained: 0"
+            android:textColor="#00FF00"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/summaryWarrior1EnergyLost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crew Member 1- Energy Lost: 0"
+            android:textColor="#FF0000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/summaryWarrior2EnergyLost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crew Member 2- Energy Lost: 0"
+            android:textColor="#FF0000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/summarySkillPower1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crew Member 1 Current Skill Power: 1"
+            android:textColor="#FFFF00"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/summarySkillPower2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crew Member 2 Current Skill Power: 1"
+            android:textColor="#FFFF00"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/summaryTotalMissions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Missions: 0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"/>
+
+        <Button
+            android:id="@+id/closeSummaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

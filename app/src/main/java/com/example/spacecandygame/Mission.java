@@ -48,12 +48,16 @@ public class Mission {
         return values[index];
     }
 
-    private int onMissionClick(CrewMember member, VillainType target) {
+    // Change to public and static so MissionFragment can use it
+    public static int onMissionClick(CrewMember member, VillainType target) {
         if (!member.canEnterBattle()) return 0;
 
         int points = 0;
         if (target == VillainType.SOUR_GUMMY_WORM) {
-            points = 2;
+            points = 2; // Basic points for hitting a worm
+        } else if (target == VillainType.HARD_CANDY) {
+            // Hard candies might be harder or give different points
+            points = 3;
         } else {
             member.takeBattleDamage();
         }
