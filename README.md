@@ -62,4 +62,8 @@ Open a Pull Request
 Inspiration from classic board games like Candy Land
 Thanks to all contributors and players ❤️
 
+Team and work division:
+The project team originally consisted of three members. Satarupa Barua, Nina Paljakka Laughling and Özde Taştan. Satarupa Barua contributed to the initial phase of the project, including early documentation, but had to withdraw from the course due to personal reasons.The remaining development, implementation, testing, and final documentation were completed by the two remaining team members. Nina Paljakka implemented core features, backend logic, and testing. Özde Taştan developed UI components and integration. 
 AI Declaration: This ReadMe file template was created by ChatGPT AI and then updated to include relevant information about our game.
+ 
+
