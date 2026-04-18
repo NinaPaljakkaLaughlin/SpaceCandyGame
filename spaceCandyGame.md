@@ -5,7 +5,9 @@ Group Name: NOP
 Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
 ******************************************************************************************************
 - Project Description: CandyWorld Battle
+  
   *
+  
   CandyWorld Battle is a vibrant game where players explore a sugary world filled with:
   
   Strategic character gameplay for maximizing team points
@@ -23,10 +25,13 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
 🏆 Track your team and individual crew member statistics from the statistics page found on the top right of the homes screen.
 
   *
+  
 ******************************************************************************************************
 - Class Diagram: (source)
 ******************************************************************************************************
+
 - Divison of Work
+  
   *
   
     Project Plan Documentation:
@@ -93,9 +98,43 @@ Group Members: Nina Paljakka-Laughlin, Özde Taştan, (Satarupa Barua)
       written in collaboration
     - fragment_home
     - fragment_recruit
+ 
   *
+  
 ******************************************************************************************************
 - Implemented Features
+*
 
+  Required Features
+
+  - User can **create crew members**
+  - Crew members **default location is the housing Quarters** when they are created
+  - User can **move crew members to training or battle**
+  - When the **crew members are trained they gain experience points** (XP)
+  - **Experience points (XP) affect mission performance** (skill power increases as XP increases)
+  - **Experience points start at 0**
+  - **Energy starts at 12 (max energy)**
+  - **Hashmap** is used to store crew member IDs and names
+  - There are **buttons to navigate to different locations and create (recruit) new members**
+  - When recruiting new crew members, there is **input for naming the crew member**
+  - When recruiting new crew members, there is a **dropdown to select crew type and stats are shown         when crew types are clicked through**
+  - When recruiting new crew members, there is a **create button and a cancel button**
+  - When homes are clicked on, the **user can view the crew members of that crew type, and select the       crew members to view their stats**
+  - From the homes screen, crew members can be selected and there are **buttons to go to training or        battle**
+  - In training, there is a **start training button and an end-of-training summary** which displays XP      gained, XP lost, current skill power, and total training sessions for the crew member.
+  - 
+ 
+  Bonus Features
+
+  - **Implemented a statistics page** for user to view crew member individual missions completed,           trainings completed, XP, and energy, as well as total crew missions completed, total crew points        gained in battle, number of crew members, and number of each type of crew member
+  - **Recycler view used** to list crew member individual details in the statistics page
+  - **Tracking for how crew members are performing** (number of missions, number of training sessions)
+  - **Randomness** used for threat spawning
+  - **Specializations** get bonuses on missions (engineer gets +2 skill power when planting flowers)
+  - **Fragments** used in the application
+  - **Implementation of your own feature** (engineer flower field and flower planting, scientist flower     picking and potion making)
+  -  
+  
+*
 ******************************************************************************************************
 
