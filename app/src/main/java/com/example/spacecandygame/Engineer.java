@@ -11,7 +11,7 @@ public class Engineer extends CrewMember{
 
     //Planting flowers increase engineer xp by 5
     public void plantFlower() {
-        SpecialStuff.addFlower();
+        SpecialStuff.addFlowers(1);
         addXP(5);
     }
 
@@ -25,19 +25,17 @@ public class Engineer extends CrewMember{
     //Required abstract methods
     @Override
     public int onTrainClick(VillainType target) {
-        addXP(3);
-        return 0;
+        return attack(target);
     }
 
     @Override
     public int onMissionClick(VillainType target) {
-        takeBattleDamage();
-        return 0;
+        return attack(target);
     }
 
     @Override
     public int crewMemberAction(VillainType target) {
-        return 0;
+        return attack(target);
     }
 
     //training + battle logic

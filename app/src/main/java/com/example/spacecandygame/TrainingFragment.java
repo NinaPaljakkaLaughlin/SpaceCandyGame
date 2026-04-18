@@ -128,10 +128,10 @@ public class TrainingFragment extends Fragment {
         TextView worm = new TextView(getContext());
         if (type == VillainType.SOUR_GUMMY_WORM) {
             worm.setText("🐛"); // Sour worm
-            worm.setTextColor(0xFF00FF00);
+            worm.setTextColor(0xFF00FF00); // Green for sour
         } else {
-            worm.setText("🍬"); // hard candy
-            worm.setTextColor(0xFFFF00FF);
+            worm.setText("🍬"); // Sweet worm
+            worm.setTextColor(0xFFFF00FF); // Pink for sweet
         }
         worm.setTextSize(40);
 
@@ -148,6 +148,9 @@ public class TrainingFragment extends Fragment {
             worm.setX(-300); // Start further off-screen
             worm.setY(startY);
 
+            ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -200f, (float) arenaWidth + 200f);
+            animator.setDuration(15000 + random.nextInt(2000));
+            animator.setStartDelay(random.nextInt(2000));
             // SLOWER: Increased duration for slower movement
             ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -300f, (float) arenaWidth + 300f);
             animator.setDuration(12000 + random.nextInt(8000)); // 12-20 seconds per item
@@ -169,12 +172,12 @@ public class TrainingFragment extends Fragment {
             worm.setOnClickListener(v -> {
                 if (type == VillainType.SOUR_GUMMY_WORM) {
                     int oldXP = trainee.getXP();
-                    trainee.addXP(2); // Gaining XP
+                    trainee.addXP(10); // Gaining XP
                     xpGainedSession += (trainee.getXP() - oldXP);
                 } else {
                     int oldXP = trainee.getXP();
                     trainee.takeTrainingDamage(); // Losing XP
-                    xpLostSession += trainee.getXP() - oldXP;
+                    xpLostSession += Math.abs(trainee.getXP() - oldXP);
                 }
                 trainingArena.removeView(worm);
                 animator.cancel();

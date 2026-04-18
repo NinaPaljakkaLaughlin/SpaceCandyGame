@@ -10,6 +10,7 @@ public class Doctor extends CrewMember {
         this.resilience = 5;
         this.XP = 0;
         this.healsUsed = 0;
+        this.location = Location.MEDBAY;
     }
 
     //Doctor cannot enter battle arena
@@ -20,9 +21,9 @@ public class Doctor extends CrewMember {
 
     //Doctor trains by attacking sour gummy worms
     public int attack(VillainType target) {
-        if (getLocation() == Location.TRAINING) {
+        if (getLocation() == Location.MEDBAY) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
-                addXP(3);
+                addXP(10);
             } else {
                 takeTrainingDamage();
             }
@@ -33,8 +34,7 @@ public class Doctor extends CrewMember {
     //Required abstract methods
     @Override
     public int onTrainClick(VillainType target) {
-        addXP(2);
-        return 0;
+        return attack(target);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Doctor extends CrewMember {
 
     @Override
     public int crewMemberAction(VillainType target) {
-        return 0;
+        return attack(target);
     }
 
     public boolean canHeal() {

@@ -61,6 +61,7 @@ public class EngineerHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
+                                    "\nSkillPower: " + crewMember.getSkillPower() +
                                     "\nEnergy: " + crewMember.getEnergy() +
                                     "\nLocation: " + crewMember.getLocation()
                     );
@@ -128,12 +129,11 @@ public class EngineerHouseFragment extends Fragment {
         // PLANT FLOWER
         plantFlowerButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
-                ((Engineer) selectedEngineer).plantFlower();
-                statsText.setText(
-                        "Name: " + selectedEngineer.getName() +
-                                "\nXP: " + selectedEngineer.getXP() +
-                                "\nStatus: Planted Flower"
-                );
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, FlowerFieldFragment.newInstance(selectedEngineer.getId(), "ENGINEER"))
+                        .addToBackStack(null)
+                        .commit();
             } else {
                 statsText.setText("Please select an engineer first.");
             }

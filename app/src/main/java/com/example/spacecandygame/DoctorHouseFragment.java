@@ -29,8 +29,9 @@ public class DoctorHouseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button startButton = view.findViewById(R.id.goToStartButton);
-        Button healButton = view.findViewById(R.id.healButton);
         Button trainButton = view.findViewById(R.id.trainButton);
+        Button healButton = view.findViewById(R.id.healButton);
+        Button sendToMedbayButton = view.findViewById(R.id.sendToMedbayButton);
         TextView statsText = view.findViewById(R.id.soldierStatsText);
         LinearLayout doctorContainer = view.findViewById(R.id.soldierContainer);
 
@@ -56,6 +57,7 @@ public class DoctorHouseFragment extends Fragment {
                             "Name: " + crewMember.getName() +
                                     "\nColor: " + crewMember.getColor() +
                                     "\nXP: " + crewMember.getXP() +
+                                    "\nSkillPower: " + crewMember.getSkillPower() +
                                     "\nEnergy: " + crewMember.getEnergy() +
                                     "\nLocation: " + crewMember.getLocation()
                     );
@@ -65,21 +67,6 @@ public class DoctorHouseFragment extends Fragment {
             }
         }
 
-        healButton.setOnClickListener(v -> {
-            if (selectedDoctor != null) {
-                selectedDoctor.healed();
-                statsText.setText(
-                        "Name: " + selectedDoctor.getName() +
-                                "\nColor: " + selectedDoctor.getColor() +
-                                "\nXP: " + selectedDoctor.getXP() +
-                                "\nEnergy: " + selectedDoctor.getEnergy() +
-                                "\nStatus: Healed"
-                );
-            } else {
-                statsText.setText("Please select a doctor first.");
-            }
-        });
-
         trainButton.setOnClickListener(v -> {
             if (selectedDoctor != null) {
                 requireActivity().getSupportFragmentManager()
@@ -87,6 +74,40 @@ public class DoctorHouseFragment extends Fragment {
                         .replace(R.id.main, TrainingFragment.newInstance(selectedDoctor.getId()))
                         .addToBackStack(null)
                         .commit();
+            } else {
+                statsText.setText("Please select a doctor first.");
+            }
+        });
+
+        healButton.setOnClickListener(v -> {
+            if (selectedDoctor != null) {
+                selectedDoctor.healed();
+                statsText.setText(
+                        "Name: " + selectedDoctor.getName() +
+                                "\nColor: " + selectedDoctor.getColor() +
+                                "\nXP: " + selectedDoctor.getXP() +
+                                "\nSkillPower: " + selectedDoctor.getSkillPower() +
+                                "\nEnergy: " + selectedDoctor.getEnergy() +
+                                "\nLocation: " + selectedDoctor.getLocation() +
+                                "\nStatus: Healed"
+                );
+            } else {
+                statsText.setText("Please select a doctor first.");
+            }
+        });
+
+        sendToMedbayButton.setOnClickListener(v -> {
+            if (selectedDoctor != null) {
+                selectedDoctor.setLocation(Location.MEDBAY);
+                statsText.setText(
+                        "Name: " + selectedDoctor.getName() +
+                                "\nColor: " + selectedDoctor.getColor() +
+                                "\nXP: " + selectedDoctor.getXP() +
+                                "\nSkillPower: " + selectedDoctor.getSkillPower() +
+                                "\nEnergy: " + selectedDoctor.getEnergy() +
+                                "\nLocation: " + selectedDoctor.getLocation() +
+                                "\nStatus: Sent to Medbay"
+                );
             } else {
                 statsText.setText("Please select a doctor first.");
             }

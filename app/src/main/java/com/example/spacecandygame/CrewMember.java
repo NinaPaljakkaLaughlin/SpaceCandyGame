@@ -62,6 +62,13 @@ public abstract class CrewMember {
     //Method for setting crew type
     public void setCrewType(CrewType type) {
         this.crewType = type;
+
+        // Doctor belongs in Medbay, other crew members start in Quarters
+        if (type == CrewType.DOCTOR) {
+            this.location = Location.MEDBAY;
+        } else {
+            this.location = Location.QUARTERS;
+        }
     }
 
     //Method for setting color
@@ -118,6 +125,11 @@ public abstract class CrewMember {
         return skillPower;
     }
 
+    // Doctor can heal once they have at least 10 XP
+    public boolean canHealCrew() {
+        return crewType == CrewType.DOCTOR && XP >= 10;
+    }
+
     //Method for getting energy
     public int getEnergy() {
         return energy;
@@ -126,8 +138,9 @@ public abstract class CrewMember {
     //Method for taking damage in battle (battle damage decreases energy, energy cannot go negative)
     public void takeBattleDamage() {
         energy -= getDamageAmount();
-        if (energy < 0) {
+        if (energy <= 0) {
             energy = 0;
+            setLocation(Location.MEDBAY);
         }
     }
 
