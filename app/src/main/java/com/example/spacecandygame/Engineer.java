@@ -1,7 +1,18 @@
 package com.example.spacecandygame;
 
+/*
+This file contains the Engineer sub-class of the CrewMember parent class to define attributes and
+methods for crew member type engineer
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+
+ChatGPT was used to solve merge conflicts
+*/
+
 public class Engineer extends CrewMember{
 
+    //Constructor
     public Engineer(String id, String name) {
         super(id, name);
         setCrewType(CrewType.ENGINEER);

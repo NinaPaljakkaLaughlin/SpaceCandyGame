@@ -1,15 +1,12 @@
 package com.example.spacecandygame;
-//This file contains the villain enums to define global constants for the villains found in the training and battle arenas
 
-//AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
-//within the code once written. No code has been written by AI or copy-pasted from an AI source.
+//This file contains the set-up for villain type enumerators to define our custom java villain types
 
 public enum VillainType {
-    //sour gummy worms = evil
+    //sour gummy worms = evil -  gain crew points/XP
     SOUR_GUMMY_WORM,
-    //hard candies = good and evil
+    //hard candies = good and evil - lose energy/XP (exception: Dragon crew members)
     HARD_CANDY,
-    //gummy bears = good
+    //gummy bears = good - lose energy/XP
     GUMMY_BEAR
-
 }

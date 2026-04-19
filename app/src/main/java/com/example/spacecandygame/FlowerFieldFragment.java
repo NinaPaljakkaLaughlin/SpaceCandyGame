@@ -1,5 +1,16 @@
 package com.example.spacecandygame;
 
+/*
+This file contains flower field fragment subclass to define the fragment in which UI displays
+the flower field which is accessible by the engineer, who plants flowers, and the scientist, who
+picks flowers from the field and can make potions from the picked flowers to go into training arena
+
+AI Usage Declaration: ChatGPT AI was used for troubleshooting errors within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;

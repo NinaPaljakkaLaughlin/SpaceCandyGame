@@ -1,5 +1,15 @@
 package com.example.spacecandygame;
-//AI use declaration: AI was used to generate the background image
+
+/*
+This file contains home fragment subclass to define the fragment in which UI displays
+the home (quarters) which is where all crew member types homes can be clicked to access the created
+crew members and access their activities and stats.
+
+AI Usage Declaration: ChatGPT AI was used for troubleshooting errors within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,7 +1,15 @@
 package com.example.spacecandygame;
-//This file contains the Mission Fragment to define user interaction with the fragment for the battle arena
 
-//AI Usage Declaration: Gemini AI was used to assist in writing this file, and for troubleshooting errors
+/*
+This file contains the Mission fragment subclass to define the fragment in which UI displays
+the battle arena where two crew members can battle threats in turns to gain crew points.
+
+AI Usage Declaration: Gemini AI was used to assist in writing this file, and for troubleshooting errors, and for troubleshooting errors
+within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

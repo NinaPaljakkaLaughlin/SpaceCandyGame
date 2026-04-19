@@ -1,5 +1,15 @@
 package com.example.spacecandygame;
 
+/*
+This file contains the MainActivity class to define the main page of the game which includes the
+buttons to recruit new crew members, go to the homes, and view the rules.
+
+AI Usage Declaration: ChatGPT AI was used for troubleshooting errors within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.os.Bundle;
 import android.widget.Button;
 

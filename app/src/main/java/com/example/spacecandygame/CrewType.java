@@ -1,7 +1,9 @@
 package com.example.spacecandygame;
 
-//This file contains the set-up for crew type enums to define our custom java character types
+//This file contains the crew type enumerators to define our custom java character types
+
 public enum CrewType {
+    //crew member types
     DRAGON,
     ENGINEER,
     DOCTOR,

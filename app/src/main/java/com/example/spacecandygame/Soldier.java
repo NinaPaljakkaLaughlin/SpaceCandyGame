@@ -1,7 +1,18 @@
 package com.example.spacecandygame;
 
+/*
+This file contains the Soldier sub-class of the CrewMember parent class to define attributes and
+methods for crew member type soldier
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+
+ChatGPT was used to solve merge conflicts
+*/
+
 public class Soldier extends CrewMember {
 
+    //Constructor
     public Soldier(String id, String name) {
         super(id, name);
         setCrewType(CrewType.SOLDIER);
@@ -16,7 +27,7 @@ public class Soldier extends CrewMember {
         return getXP() >= 50;
     }
 
-    //Required abstract methods (UI not using yet)
+    //Required abstract methods
     @Override
     public int onTrainClick(VillainType target) {
         addXP(3);
@@ -34,10 +45,10 @@ public class Soldier extends CrewMember {
         return 0;
     }
 
+    //training + battle logic
     public int attack(VillainType target) {
-
+        //training
         //only sour gummy worm gives +xp
-        //Soldier before enough XP
         if (getLocation() == Location.TRAINING && getXP() < 50) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 addXP(3);

@@ -1,10 +1,12 @@
 package com.example.spacecandygame;
 
-//This file contains the Crew Stats Fragment class to define the fragment which in UI displays
-//stats for the entire crew and for each individual member of the crew using recycler view
+/*
+This file contains the Crew Stats Fragment class to define the fragment in which UI displays
+stats for the entire crew and for each individual member of the crew using recycler view
 
-//AI Usage Declaration: Gemini AI was used to assist in writing UI and structuring the code for the recycler view,
-//and for troubleshooting errors
+AI Usage Declaration: Gemini AI was used to assist in writing UI and structuring the code for the recycler view,
+and for troubleshooting errors
+ */
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

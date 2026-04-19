@@ -1,5 +1,15 @@
 package com.example.spacecandygame;
 
+/*
+This file contains the Rules fragment subclass to define the fragment in which UI displays
+the rules for the game when the Rules button is selected from the main page
+
+AI Usage Declaration: Gemini AI was used for troubleshooting errors within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

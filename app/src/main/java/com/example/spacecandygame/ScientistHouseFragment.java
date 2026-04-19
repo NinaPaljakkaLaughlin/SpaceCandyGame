@@ -1,5 +1,18 @@
 package com.example.spacecandygame;
 
+/*
+This file contains the Scientist house fragment subclass to define the fragment in which UI displays
+the inside of the scientist house from quarters, where the user has access to the scientist crew
+members and their stats, as well as the abilities to go to train, battle, pick flowers, and make
+potions from those flowers, and go to medbay.
+
+AI Usage Declaration: Gemini AI was used to assist in writing this file, and for troubleshooting errors, and for troubleshooting errors
+within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;

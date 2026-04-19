@@ -1,9 +1,13 @@
 package com.example.spacecandygame;
-//This file contains the Crew Member Adapter class to communicate with the recycler view in CrewStatsFragment
-//and display stats for each individual member of the crew
 
-//AI Usage Declaration: Gemini AI was used to write this adapter file so that it properly functions with
-//the recycler view.
+/*
+This file contains the Crew Member Adapter class to communicate with the recycler view in CrewStatsFragment
+and display stats for each individual member of the crew
+
+AI Usage Declaration: Gemini AI was used to write this adapter file so that it properly functions with
+the recycler view. Comments have not been written by AI.
+ */
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

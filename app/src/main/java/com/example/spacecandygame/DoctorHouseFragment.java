@@ -1,5 +1,16 @@
 package com.example.spacecandygame;
 
+/*
+This file contains Doctor house fragment subclass to define the fragment in which UI displays
+the "inside" of the doctor house (the doctor is housed in the MedBay in UI, however this file defines
+the functionality such as including the heal button and displaying doctor characters and their stats)
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

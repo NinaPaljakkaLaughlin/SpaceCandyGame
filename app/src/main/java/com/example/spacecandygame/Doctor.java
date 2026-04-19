@@ -1,9 +1,20 @@
 package com.example.spacecandygame;
 
-public class Doctor extends CrewMember {
+/*
+This file contains the Doctor sub-class of the CrewMember parent class to define attributes and
+methods for crew member type doctor
 
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
+public class Doctor extends CrewMember {
+    //variable to count heals used
     private int healsUsed;
 
+    //Constructor
     public Doctor(String id, String name) {
         super(id, name);
         setCrewType(CrewType.DOCTOR);
@@ -47,10 +58,12 @@ public class Doctor extends CrewMember {
         return attack(target);
     }
 
+    //Method to check if doctor can heal
     public boolean canHeal() {
         return (getXP() / 10) > healsUsed;
     }
 
+    //Method to heal crew member
     public boolean healCrewMember(CrewMember target) {
         if (target != null && canHeal()) {
             target.healed();
@@ -60,6 +73,7 @@ public class Doctor extends CrewMember {
         return false;
     }
 
+    //Method to calculate heals remaining after healing a crew member
     public int getRemainingHeals() {
         return (getXP() / 10) - healsUsed;
     }

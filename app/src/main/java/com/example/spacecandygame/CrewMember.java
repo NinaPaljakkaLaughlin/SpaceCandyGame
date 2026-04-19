@@ -1,25 +1,29 @@
 package com.example.spacecandygame;
+/*
+This file contains the CrewMember parent class to define attributes and methods for all crew member types
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written. No code has been copy-pasted directly from an AI source.
+
+ChatGPT was used to solve some merge conflicts
+ */
 
 import java.util.*;
-//This file contains the CrewMember parent class to define attributes and methods for all crew member types
 
-//AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
-//within the code once written. No code has been written by AI or copy-pasted from an AI source.
-//ChatGPT was used to solve merge conflicts
 public abstract class CrewMember {
     //Attributes
     private String id; //get ID, ID set when crew member is made
     private String name; //get name, name set when crew member is made
     private String color; //get color, color set when crew member is made
-    protected CrewType crewType; //defines the type of crew member, need getter and setter
-    protected int XP; //get XP, damage in training method manages decreasing XP, add XP in training method manages increasing XP
-    protected int energy; //get energy, damage in battle method manages decreasing energy, heal method manages increasing energy from doctor
-    protected int maxEnergy; //no need for getter or setter, set in CrewMember constructor
-    protected int resilience; //get resilience, values hardcoded in each crew members classes
-    protected Location location; //get location, set location
+    protected CrewType crewType; //defines the type of crew member
+    protected int XP; //XP = experience points, gained in training and required to battle (or heal for doctor)
+    protected int energy; //damage in battle decreases energy
+    protected int maxEnergy; //maxEnergy for default and healing by doctor
+    protected int resilience; //resilience, hardcoded in each crew members classes and impacts damage level
+    protected Location location; //location of the crew member in the game
     protected int missionsCompleted; //track number of missions each character has completed
-    protected int trainingSessions; //track how many training sessions this character has done
-    protected int skillPower; //skill power of the crew member
+    protected int trainingSessions; //track how many training sessions each character has done
+    protected int skillPower; //skill power of the crew member, increases with XP, starts at 1
 
     public abstract int onTrainClick(VillainType target);
     public abstract int onMissionClick(VillainType target);
@@ -30,13 +34,13 @@ public abstract class CrewMember {
         this.name = name; //set member name
         this.maxEnergy = 12; //set max energy to 12
         this.energy = maxEnergy; //set energy to maxEnergy for start of game
-        this.resilience = 0;
-        this.location = Location.QUARTERS;
-        this.XP = 0;
-        this.missionsCompleted = 0;
-        this.trainingSessions = 0;
-        this.skillPower = 1;
-        this.color = "";
+        this.resilience = 0; //redefined per crew member type
+        this.location = Location.QUARTERS; //default location quarters (exception- doctor)
+        this.XP = 0; //XP starts a 0
+        this.missionsCompleted = 0; //missions completed starts at 0
+        this.trainingSessions = 0; //training sessions completed starts at 0
+        this.skillPower = 1; //skill power starts at 1
+        this.color = ""; //color default is empty
     }
 
     //Method for getting crew member id
@@ -81,7 +85,7 @@ public abstract class CrewMember {
         return XP;
     }
 
-    //Method for getting the amount of damage (note: XP can go negative)
+    //Method for getting the amount of damage- impacted by resilience (note: XP can go negative)
     public int getDamageAmount() {
         int damage;
         if (resilience == 10) {
@@ -100,12 +104,13 @@ public abstract class CrewMember {
         updateSkillPower();
     }
 
-    //Method for adding XP in training
+    //Method for adding XP in training - adds skill power
     public void addXP(int amount) {
         XP += amount;
         updateSkillPower();
     }
 
+    //Method for updating skill power
     private void updateSkillPower() {
         // Skill power increases by 1 for every 50 XP gained.
         if (XP < 0) {
@@ -164,10 +169,12 @@ public abstract class CrewMember {
         return missionsCompleted;
     }
 
+    //Method for incrementing training sessions
     public void incrementTrainingSessions() {
         trainingSessions++;
     }
 
+    //Method for getting the number of training sessions
     public int getTrainingSessions() {
         return trainingSessions;
     }

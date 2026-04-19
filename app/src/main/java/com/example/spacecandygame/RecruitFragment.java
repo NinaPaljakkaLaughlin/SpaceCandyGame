@@ -1,6 +1,17 @@
 package com.example.spacecandygame;
 
-//AI use declaration: AI was used to generate the background image
+/*
+This file contains the Recruit fragment subclass to define the fragment in which UI displays
+the recruitment page to allow the user to create new crew members: entering the name and id of the crew member
+as well as selecting the type of crew member (with stats viewable) and the color of the character.
+
+AI Usage Declaration: Gemini AI was used to assist in writing this file, and for troubleshooting errors, and for troubleshooting errors
+within the code once written.
+AI was used to generate the background image and the crew member images.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
