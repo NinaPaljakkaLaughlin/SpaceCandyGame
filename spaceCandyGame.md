@@ -236,5 +236,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 
 ---
 
-AI Usage Declaration: ChatGPT AI was used to format this page. 
+AI Usage Declaration: 
+spaceCandyGame.md: ChatGPT AI was used to format this page.
+SpaceCandyGame Project: ChatGPT and Gemini AI were used to aid in creating this project and troubleshooting code errors in this project. All images are AI generated. 
 
