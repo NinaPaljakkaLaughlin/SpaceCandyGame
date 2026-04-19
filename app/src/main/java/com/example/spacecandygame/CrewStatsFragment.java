@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,9 +24,10 @@ public class CrewStatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TextView overallStatsText;
-    private TextView memberStatsText;
+    private TextView textCrewPoints;
     private Button teamStatsButton;
     private Button memberStatsButton;
+    private ProgressBar progressBarTotalCrewPoints;
 
     public CrewStatsFragment() {
         // Required empty public constructor
@@ -43,9 +45,11 @@ public class CrewStatsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         overallStatsText = view.findViewById(R.id.overallStatsText);
+        textCrewPoints = view.findViewById(R.id.textCrewPoints);
         teamStatsButton = view.findViewById(R.id.crewStatsButton);
         memberStatsButton = view.findViewById(R.id.memberStatsButton);
         Button backButton = view.findViewById(R.id.backButton);
+        progressBarTotalCrewPoints = view.findViewById(R.id.progressBarTotalCrewPoints);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         
@@ -60,6 +64,12 @@ public class CrewStatsFragment extends Fragment {
         memberStatsButton.setOnClickListener(v -> {
             overallStatsText.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
+            if (progressBarTotalCrewPoints != null) {
+                progressBarTotalCrewPoints.setVisibility(View.GONE);
+            }
+            if (textCrewPoints != null) {
+                textCrewPoints.setVisibility(View.GONE);
+            }
             recyclerView.setAdapter(new CrewMemberAdapter(crewList));
         });
 
@@ -68,9 +78,21 @@ public class CrewStatsFragment extends Fragment {
         });
     }
 
+    public void updateProgressBar(int crewPointsTotal) {
+        if (progressBarTotalCrewPoints != null) {
+            progressBarTotalCrewPoints.setVisibility(View.VISIBLE);
+            progressBarTotalCrewPoints.setMax(1000); // Set a reasonable goal or scale
+            progressBarTotalCrewPoints.setProgress(crewPointsTotal);
+        }
+        if (textCrewPoints != null) {
+            textCrewPoints.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void showOverallStats(GameTracker tracker) {
         overallStatsText.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+
 
         List<CrewMember> list = tracker.getCrewList();
         int soldiers = 0, engineers = 0, scientists = 0, dragons = 0, doctors = 0;
@@ -82,6 +104,8 @@ public class CrewStatsFragment extends Fragment {
             else if (member instanceof Dragon) dragons++;
             else if (member instanceof Doctor) doctors++;
         }
+
+        updateProgressBar(tracker.getCrewPoints());
 
         String crewStats = "Total Missions: " + tracker.getTotalMissions() + "\n" +
                 "Total Crew Points: " + tracker.getCrewPoints() + "\n" +
