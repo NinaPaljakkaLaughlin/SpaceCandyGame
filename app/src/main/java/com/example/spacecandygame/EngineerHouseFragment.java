@@ -90,6 +90,7 @@ public class EngineerHouseFragment extends Fragment {
                 statsText.setText("Please select an engineer first.");
                 return;
             }
+
             if (!selectedEngineer.canEnterBattle()) {
                 statsText.setText(selectedEngineer.getName() + " needs 50 XP to enter battle!");
                 return;
@@ -126,7 +127,7 @@ public class EngineerHouseFragment extends Fragment {
                     .show();
         });
 
-        // PLANT FLOWER
+        // FLOWER FIELD
         plantFlowerButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
                 requireActivity().getSupportFragmentManager()

@@ -1,5 +1,7 @@
 package com.example.spacecandygame;
+
 //AI use declaration: AI was used to generate the background image
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,6 +20,12 @@ import androidx.fragment.app.Fragment;
 import java.util.List;
 
 public class RecruitFragment extends Fragment {
+
+    private ImageView characterPreview;
+    private Spinner typeSpinner;
+    private Spinner colorSpinner;
+    private TextView descriptionText;
+    private View colorOverlay;
 
     public RecruitFragment() {
         // Required empty public constructor
@@ -38,15 +47,15 @@ public class RecruitFragment extends Fragment {
 
         EditText nameInput = view.findViewById(R.id.nameInput);
         EditText idInput = view.findViewById(R.id.idInput);
-        Spinner typeSpinner = view.findViewById(R.id.typeSpinner);
-        Spinner colorSpinner = view.findViewById(R.id.colorSpinner);
+        typeSpinner = view.findViewById(R.id.typeSpinner);
+        colorSpinner = view.findViewById(R.id.colorSpinner);
         TextView resultText = view.findViewById(R.id.resultText);
-        TextView descriptionText = view.findViewById(R.id.descriptionText);
+        descriptionText = view.findViewById(R.id.descriptionText);
+        characterPreview = view.findViewById(R.id.characterPreview);
+        colorOverlay = view.findViewById(R.id.colorOverlay);
 
-        // Simple names for the spinner
         String[] crewTypeNames = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON", "DOCTOR"};
-        
-        // Detailed descriptions for each type
+
         String[] crewTypeDescriptions = {
                 "SOLDIER- starting XP: 0, starting energy: 12, starting skill power: 1",
                 "ENGINEER- starting XP: 0, starting energy: 12, starting skill power: 1, special ability: can plant flowers to gain extra XP",
@@ -63,20 +72,6 @@ public class RecruitFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
 
-        // Listener to update description when a type is selected
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                descriptionText.setText(crewTypeDescriptions[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                descriptionText.setText("Select a type to see abilities");
-            }
-        });
-
-        //Dropdown options for choosing character color during recruitment
         String[] colors = {"Pink", "Purple", "Yellow", "Green", "Blue", "Red", "Black"};
         ArrayAdapter<String> colorAdapter = new ArrayAdapter<>(
                 requireContext(),
@@ -86,11 +81,36 @@ public class RecruitFragment extends Fragment {
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         colorSpinner.setAdapter(colorAdapter);
 
-        // Navigation buttons
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View spinnerView, int position, long id) {
+                descriptionText.setText(crewTypeDescriptions[position]);
+                updateCharacterPreview();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                descriptionText.setText("Select a type to see abilities");
+            }
+        });
+
+        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View spinnerView, int position, long id) {
+                updateCharacterPreview();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        updateCharacterPreview();
+
         startButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
-        
+
         cancelButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
@@ -120,7 +140,6 @@ public class RecruitFragment extends Fragment {
                 gameTracker.createDoctor(id, name);
             }
 
-            //Get the most recently created crew member and assign the selected color
             List<CrewMember> list = gameTracker.getCrewList();
             if (!list.isEmpty()) {
                 CrewMember newMember = list.get(list.size() - 1);
@@ -132,5 +151,60 @@ public class RecruitFragment extends Fragment {
             nameInput.setText("");
             idInput.setText("");
         });
+    }
+
+    private void updateCharacterPreview() {
+        if (typeSpinner == null || colorSpinner == null || characterPreview == null || colorOverlay == null) {
+            return;
+        }
+
+        String selectedType = typeSpinner.getSelectedItem().toString();
+        String selectedColor = colorSpinner.getSelectedItem().toString();
+
+        int imageResId = getCharacterImage(selectedType);
+        characterPreview.setImageResource(imageResId);
+        characterPreview.clearColorFilter();
+        characterPreview.setImageAlpha(255);
+
+        int overlayColor = getSelectedColorValue(selectedColor);
+        colorOverlay.setBackgroundColor(overlayColor);
+    }
+
+    private int getCharacterImage(String characterType) {
+        switch (characterType) {
+            case "SOLDIER":
+                return R.drawable.soldier;
+            case "ENGINEER":
+                return R.drawable.engineer;
+            case "SCIENTIST":
+                return R.drawable.scientist;
+            case "DRAGON":
+                return R.drawable.dragon;
+            case "DOCTOR":
+                return R.drawable.doctor;
+            default:
+                return R.drawable.soldier;
+        }
+    }
+
+    private int getSelectedColorValue(String colorName) {
+        switch (colorName) {
+            case "Pink":
+                return Color.parseColor("#44FFC0CB");
+            case "Purple":
+                return Color.parseColor("#448A2BE2");
+            case "Yellow":
+                return Color.parseColor("#44FFFF00");
+            case "Green":
+                return Color.parseColor("#4400FF00");
+            case "Blue":
+                return Color.parseColor("#440000FF");
+            case "Red":
+                return Color.parseColor("#44FF0000");
+            case "Black":
+                return Color.parseColor("#44000000");
+            default:
+                return Color.parseColor("#00FFFFFF");
+        }
     }
 }
