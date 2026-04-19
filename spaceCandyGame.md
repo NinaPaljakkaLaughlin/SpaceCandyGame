@@ -33,7 +33,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 
 * 🔬 Scientist → Creates potions from flowers for attacks
 * 🔧 Engineer → Plants special flowers for XP
-* 🐉 Dragon → Battles all enemy types after 60 XP
+* 🐉 Dragon → Battles enemy types sour gummy worm and hard candy after 60 XP to gain crew points
 * 🩺 Doctor → Heals teammates (no combat)
 * 🪖 Soldier → Combat-focused unit
 
@@ -53,6 +53,9 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * Features → Özde
 * UI Description → Satarupa
 * UML Plan → Nina, Özde, Satarupa
+* spaceCandyGame.md Report → Nina
+* Class-Diagram → Özde
+* Cleaning: structure and comment management of all files → Nina
 
 ---
 
@@ -66,13 +69,11 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * CrewType
 * Dragon
 * GameTracker
-* GamingLogic
 * Location
 * Mission
 * MissionFragment
 * Scientist
 * Threat
-* Train
 * TrainingFragment
 * VillainType
 
@@ -83,7 +84,6 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * DragonHouseFragment
 * Engineer
 * EngineerHouseFragment
-* FlowerField
 * FlowerFieldFragment
 * MainActivity
 * MedbayFragment
@@ -220,6 +220,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
   
 * ⚡ **Specializations for Battle Advantage**
   * Engineer gets +5 XP for planting flowers
+  * Dragon gains crew points in battle for attacking hard candies and sour gummy worms
   * Skill Power increases as crew member trains: 50 XP = +1 Skill Power
   * Crew Member Resilience impacts damage during training (-XP) and battle (-energy)
         
