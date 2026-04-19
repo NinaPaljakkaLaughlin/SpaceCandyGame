@@ -18,9 +18,6 @@ public class Threat {
         return threatPower;
     }
     //Method for tracking when gummys are hit by crew members
-        //UI should run power number of bad gummys on the screen until threat counter hits 0 (all gummys are killed)
-        //number of good gummys should be randomly generated between 1-100
-        //number of bad gummys should increase as number of missions completed increases
     public void threatDamage() {
         if (threatCounter > 0) {
             threatCounter --;

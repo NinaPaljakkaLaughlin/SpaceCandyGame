@@ -156,10 +156,19 @@ public class MissionFragment extends Fragment {
     }
 
     private void spawnVillainInWave() {
-        VillainType type = random.nextBoolean() ? VillainType.SOUR_GUMMY_WORM : VillainType.HARD_CANDY;
+        // Randomly select between Sour Gummy Worm, Hard Candy, and Gummy Bear
+        int rand = random.nextInt(3);
+        VillainType type;
+        if (rand == 0) type = VillainType.SOUR_GUMMY_WORM;
+        else if (rand == 1) type = VillainType.HARD_CANDY;
+        else type = VillainType.GUMMY_BEAR;
+
         TextView threatView = new TextView(getContext());
-        threatView.setText(type == VillainType.SOUR_GUMMY_WORM ? "🐛" : "🍬");
-        threatView.setTextSize(40);
+        if (type == VillainType.SOUR_GUMMY_WORM) threatView.setText("🐛");
+        else if (type == VillainType.HARD_CANDY) threatView.setText("🍬");
+        else threatView.setText("🧸"); // Gummy Bear
+
+        threatView.setTextSize(60);
 
         battleArena.post(() -> {
             int arenaWidth = battleArena.getWidth();
@@ -174,7 +183,7 @@ public class MissionFragment extends Fragment {
 
             ObjectAnimator animator = ObjectAnimator.ofFloat(threatView, "translationX", -300f, (float) arenaWidth + 300f);
             // Slower movement for better gameplay with multiple threats
-            animator.setDuration(8000 + random.nextInt(5000));
+            animator.setDuration(8000 + random.nextInt(4000));
             // Spread out spawning time so they don't all appear at once
             animator.setStartDelay(random.nextInt(5000));
 
@@ -183,9 +192,11 @@ public class MissionFragment extends Fragment {
                 public void onAnimationEnd(Animator animation) {
                     if (threatView.getParent() != null) {
                         battleArena.removeView(threatView);
-                        // Current warrior takes damage if threat reaches the end
-                        CrewMember activeWarrior = isWarrior1Turn ? warrior1 : warrior2;
-                        activeWarrior.takeBattleDamage();
+                        // If it was a real threat (worm or candy), active warrior takes damage if they miss it
+                        if (type != VillainType.GUMMY_BEAR) {
+                            CrewMember activeWarrior = isWarrior1Turn ? warrior1 : warrior2;
+                            activeWarrior.takeBattleDamage();
+                        }
                         
                         onVillainProcessed();
                     }
@@ -201,7 +212,10 @@ public class MissionFragment extends Fragment {
                 crewPointsGainedSession += gained;
                 updateProgressBar(crewPointsGainedSession);
 
-                currentThreat.threatDamage();
+                // Only worms count towards defeating the threat
+                if (type != VillainType.SOUR_GUMMY_WORM) {
+                    currentThreat.threatDamage();
+                }
 
                 battleArena.removeView(threatView);
                 animator.cancel();
