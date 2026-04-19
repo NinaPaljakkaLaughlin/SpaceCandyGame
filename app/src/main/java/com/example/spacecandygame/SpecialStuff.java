@@ -22,8 +22,4 @@ public class SpecialStuff {
         }
         return false;
     }
-
-    public static void clearFlowers() {
-        flowersInField = 0;
-    }
 }

@@ -12,19 +12,11 @@ public class GameTracker {
     private List<CrewMember> battleMembers = new ArrayList<>(); //two crew members go to battle at a time
     private HashMap<String, CrewMember> crewMap = new HashMap<>();
     private int crewPoints;
-    private int totalMissions; //track total missions for display
 
     //constructor
     public GameTracker(List<CrewMember> crewList) {
         this.crewList = (crewList != null) ? crewList : new ArrayList<>();
         this.crewPoints = 0;
-    }
-
-    //Method to select which members will go to battle arena
-    public void setBattleMembers(CrewMember crewMember) {
-        if (battleMembers.size() < 2) {
-            battleMembers.add(crewMember);
-        }
     }
 
     //Method to create dragon - add to hashmap and crew list
@@ -102,21 +94,5 @@ public class GameTracker {
         Mission mission = new Mission();
         mission.startMission(crew1, crew2, threat);
 
-        totalMissions++;
-    }
-
-    //Method for handling random enemy amounts for training and battle
-    public List<VillainType> generateVillains(int count) {
-        List<VillainType> list = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            double rand = Math.random();
-
-            if (rand < 0.6) list.add(VillainType.SOUR_GUMMY_WORM);
-            else if (rand < 0.85) list.add(VillainType.HARD_CANDY);
-            else list.add(VillainType.GUMMY_BEAR);
-        }
-
-        return list;
     }
 }
