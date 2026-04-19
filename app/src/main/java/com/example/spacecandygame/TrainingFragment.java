@@ -1,6 +1,15 @@
 package com.example.spacecandygame;
-//AI Declaration: Gemini AI was used for generating training UI and implementing
-//the training arena buttons and the visualization for the training xml
+
+/*
+This file contains Training fragment subclass to define the fragment in which UI displays
+the training arena where the user can train their crew members to gain enough XP to go to battle
+
+AI Usage Declaration: Gemini AI was used for generating training UI and implementing the training
+arena buttons and the visualization for the training xml. Edits were made.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

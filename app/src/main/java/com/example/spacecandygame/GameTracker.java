@@ -1,12 +1,17 @@
 package com.example.spacecandygame;
+
+/*
+This file contains the GameTracker class to track: total crew points for points gained in battle, number
+of missions completed, and hold the crew list for all crew members created by the user
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written. ChatGPT AI helped to build the structure of the class so that it functioned properly.
+
+ChatGPT was used to solve merge conflicts
+*/
+
 import java.util.*;
 
-//This file contains the GameTracker class to track total crew points for points gained in battle, number
-//of missions completed, hold the crew list
-
-//AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
-//within the code once written.ChatGPT AI helped to build the structure of the class so that it functioned properly.
-//ChatGPT was used to solve merge conflicts
 public class GameTracker {
     private List<CrewMember> crewList;
     private List<CrewMember> battleMembers = new ArrayList<>(); //two crew members go to battle at a time

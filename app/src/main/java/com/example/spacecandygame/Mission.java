@@ -1,10 +1,15 @@
 package com.example.spacecandygame;
 
-//This file contains the Mission class to define mission attributes and methods
+/*
+This file contains the Mission class to define mission attributes and methods
 
-//AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
-//within the code once written.ChatGPT AI helped to build the structure of the class so that it functioned properly.
-//added damage to the threat
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written. ChatGPT AI helped to build the structure of the class so that it functioned properly.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 public class Mission {
     private CrewMember member1;
     private CrewMember member2;

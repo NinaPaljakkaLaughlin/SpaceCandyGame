@@ -1,8 +1,14 @@
 package com.example.spacecandygame;
-//This file contains the Scientist child class to define attributes and methods for crew member type scientist, it inherits the crew member class
 
-//AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
-//within the code once written. No code has been written by AI or copy-pasted from an AI source.
+/*
+This file contains the Scientist sub-class of the CrewMember parent class to define attributes and
+methods for crew member type scientist
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+
+ChatGPT was used to solve merge conflicts
+*/
 
 public class Scientist extends CrewMember{
     //Attributes

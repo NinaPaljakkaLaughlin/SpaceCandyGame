@@ -1,5 +1,17 @@
 package com.example.spacecandygame;
 
+/*
+This file contains Soldier house fragment subclass to define the fragment in which UI displays
+the inside of the soldier house within the quarters
+This file defines the functionality such as displaying soldier characters and their stats
+
+AI Usage Declaration: ChatGPT AI was used to assist in writing pseudocode for the structure of this file, and for troubleshooting errors
+within the code once written.
+AI was used to generate the background image.
+
+ChatGPT was used to solve some merge conflicts
+*/
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
