@@ -69,6 +69,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * GamingLogic
 * Location
 * Mission
+* MissionFragment
 * Scientist
 * Threat
 * Train
@@ -83,6 +84,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * Engineer
 * EngineerHouseFragment
 * FlowerField
+* FlowerFieldFragment
 * MainActivity
 * MedbayFragment
 * RulesFragment
@@ -103,6 +105,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 **Nina**
 
 * fragment_crew_stats
+* fragment_mission
 * fragment_training
 
 **Özde**
@@ -111,6 +114,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * fragment_doctor_house
 * fragment_dragon_house
 * fragment_engineer_house
+* fragment_flower_field
 * fragment_medbay
 * fragment_rules
 * fragment_scientist_house
@@ -130,25 +134,41 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 
 * Create crew members
 * Default location: **Housing Quarters**
+    * Doctor default: **MedBay**
 * Move crew between training and battle
 * Training increases **XP**
 * XP affects **mission performance**
 * XP starts at **0**
 * Energy starts at **12 (max)**
-* Uses **HashMap** for crew storage
+* Uses **HashMap** for crew information storage - used in statistics view
 * Navigation buttons for locations
 * Recruit system includes:
-
   * Name input
   * Crew type dropdown
   * Stats preview
   * Create & cancel buttons
-* Home screens show crew by type
+* Homes screen:
+  * Crew housing organized by crew type
+  * Crew members can be selected at home to go to training or battle
+  * Crew members can be selected at home to view current stats
 * Training includes:
-
   * Start button
-  * End summary (XP gained/lost, skill power, sessions)
-
+  * If threat is defeated (gummy worms) crew members earn XP
+    * When 50 XP is reached, the crew member can go to battle (for dragon type: 60 XP)
+  * If the hard candies are attacked in training, the crew member loses XP
+  * End summary (XP gained/lost, skill power, training sessions)
+  * Back to Quarters button
+* Battle includes:
+  * Selection of two crew members for each battle
+    * Missions are turn-based
+    * Mission continues until threat is neutralized
+    * If threat is defeated (gummy worms) crew members earn crew points
+    * When crew member energy drains to 0 or below, their energy can be revived by the doctor
+      * The doctor must have XP from training to heal crew members
+      * If a crew member returns to quarters after battle with energy above 0, their energy is restored
+  * Start Battle button
+  * Number of missions for each crew member is tracked and scales the number of generated threats
+  * End summary ()
 ---
 
 ### 🌟 Bonus Features
@@ -156,29 +176,62 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 * 📊 **Statistics Page**
 
   * Individual stats (missions, training, XP, energy)
-  * Team stats (total missions, points, crew count)
+  * Team stats (total missions,crew points, crew count)
 
 * 📋 **RecyclerView**
 
-  * Displays crew member details
+  * Displays crew member details in statistics page
 
 * 📈 **Performance Tracking**
 
   * Missions completed
   * Training sessions
 
-* 🎲 **Randomized threat spawning**
+* 📷 **Unique Images for Crew Types**
 
-* ⚡ **Specializations**
+  * When creating crew members, image of the crew member is populated and the color of the character can be chosen, the image color updates based on the user choice
+    
+* 🎬 **Visual Effects**
+  * Training
+    * Animations - gummy worms and hard candies move across the screen
+    * Progress Bar - tracks live increase in crew member XP during training
+  * Battle
+    * Animations - gummy worms and hard candies move across the screen
+    * Progress Bar - tracks live increase in crew points gained during battle
+  *Statistics
+    * Progress Bar - visual display of accumulated crew points gained during battles
 
-  * Example: Engineer gets +2 skill power for planting flowers
+* 🎭 **Crew Member Performance Tracking**
+  * Number of training sessions
+  * Number of battles
 
+* 🩺 **MedBay for Energy Healing**
+  * When a crew member's energy drops to or below 0 during battle they can be sent to the MedBay and healed to full energy by the doctor
+      * The doctor must have XP from training to have healing abilities
+
+* 🎲 **Randomization Implementation**
+  * Math.random() used for:
+      * randomizing the type of threats generated for battles (ratio)
+      * randomizing the number of threats per battle (based on calculation with number of missions completed by the crew -> more missions = higher difficulty in battle)
+      * randomizing the number of threats per training session
+      * randomizing true/false boolean value to determine what threat type will be calculated next
+      * randomizing the location on the training and battle views where the threats will enter the screen from
+      * randomizing the speed at which the threats enter training and battle, and the amount of time between threats entering the screen
+  
+* ⚡ **Specializations for Battle Advantage**
+  * Engineer gets +5 XP for planting flowers
+  * Skill Power increases as crew member trains: 50 XP = +1 Skill Power
+  * Crew Member Resilience impacts damage during training (-XP) and battle (-energy)
+        
 * 🧱 **Fragment-based architecture**
+  * Fragments created per unique functionality
+    * Applied to all unique locations (home, crew houses, medbay, training arena, battle arena, flower field)
+    * Applied to all pages requiring unique functionality (crew statistics page, recruitment page)
 
 * 💡 **Custom Features**
-
-  * Flower planting (Engineer)
-  * Potion crafting (Scientist)
+  * Scientist must use potion made from picking flowers to go to training
+  * Flower planting can be done by the engineer 
+  * Potion crafting can be done by the scientist after picking flowers that the engineer planted 
 
 ---
 
