@@ -121,52 +121,51 @@ public class TrainingFragment extends Fragment {
         totalCandyInSession = sourWormsCount + hardCandyCount;
 
         for (int i = 0; i < sourWormsCount; i++) {
-            spawnWorm(VillainType.SOUR_GUMMY_WORM);
+            spawnThreat(VillainType.SOUR_GUMMY_WORM);
         }
         for (int i = 0; i < hardCandyCount; i++) {
-            spawnWorm(VillainType.HARD_CANDY);
+            spawnThreat(VillainType.HARD_CANDY);
         }
     }
 
-    private void spawnWorm(VillainType type) {
-        TextView worm = new TextView(getContext());
+    private void spawnThreat(VillainType type) {
+        TextView threat = new TextView(getContext());
         if (type == VillainType.SOUR_GUMMY_WORM) {
-            worm.setText("🐛");
-            worm.setTextColor(0xFF00FF00);
+            threat.setText("🐛");
+            threat.setTextColor(0xFF00FF00);
         } else {
-            worm.setText("🍬");
-            worm.setTextColor(0xFFFF00FF);
+            threat.setText("🍬");
+            threat.setTextColor(0xFFFF00FF);
         }
-        worm.setTextSize(40);
+        threat.setTextSize(40);
 
         trainingArena.post(() -> {
             int arenaWidth = trainingArena.getWidth();
             int arenaHeight = trainingArena.getHeight();
-            
             if (arenaHeight <= 0) arenaHeight = 800;
 
             int startY = random.nextInt(Math.max(1, arenaHeight - 120));
-            trainingArena.addView(worm);
+            trainingArena.addView(threat);
             
-            worm.setX(-300);
-            worm.setY(startY);
+            threat.setX(-300);
+            threat.setY(startY);
 
-            ObjectAnimator animator = ObjectAnimator.ofFloat(worm, "translationX", -300f, (float) arenaWidth + 300f);
-            animator.setDuration(12000 + random.nextInt(8000));
-            animator.setStartDelay(random.nextInt(18000));
+            ObjectAnimator animator = ObjectAnimator.ofFloat(threat, "translationX", -300f, (float) arenaWidth + 300f);
+            animator.setDuration(12000 + random.nextInt(5000));
+            animator.setStartDelay(random.nextInt(10000));
             
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (worm.getParent() != null) {
-                        trainingArena.removeView(worm);
+                    if (threat.getParent() != null) {
+                        trainingArena.removeView(threat);
                         wormsProcessed++;
                         checkTrainingEnd();
                     }
                 }
             });
 
-            worm.setOnClickListener(v -> {
+            threat.setOnClickListener(v -> {
                 if (type == VillainType.SOUR_GUMMY_WORM) {
                     int oldXP = trainee.getXP();
                     trainee.addXP(10); // Gaining XP
@@ -177,7 +176,7 @@ public class TrainingFragment extends Fragment {
                     xpLostSession += Math.abs(trainee.getXP() - oldXP);
                 }
                 updateXpBar(trainee.getXP());
-                trainingArena.removeView(worm);
+                trainingArena.removeView(threat);
                 animator.cancel();
                 wormsProcessed++;
                 checkTrainingEnd();

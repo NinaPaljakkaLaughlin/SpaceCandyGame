@@ -54,10 +54,7 @@ public class Mission {
 
         int points = 0;
         if (target == VillainType.SOUR_GUMMY_WORM) {
-            points = 2; // Basic points for hitting a worm
-        } else if (target == VillainType.HARD_CANDY) {
-            // Hard candies might be harder or give different points
-            points = 3;
+            points = 2;
         } else {
             member.takeBattleDamage();
         }

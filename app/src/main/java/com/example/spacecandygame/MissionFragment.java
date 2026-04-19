@@ -35,11 +35,14 @@ public class MissionFragment extends Fragment {
     private Button startButton;
     private LinearLayout summaryLayout;
     private Random random = new Random();
-    private int villainsProcessed = 0;
     private ProgressBar progressBarCrewPoints;
     
     private boolean isWarrior1Turn = true;
     private Threat currentThreat;
+
+    // Track wave progress for turns
+    private int villainsInTurnProcessed = 0;
+    private int villainsInTurnTotal = 0;
 
     public MissionFragment() {
         // Required empty public constructor
@@ -70,6 +73,7 @@ public class MissionFragment extends Fragment {
         summaryLayout = view.findViewById(R.id.summaryLayout);
         TextView nameText1 = view.findViewById(R.id.crewMemberName1);
         TextView nameText2 = view.findViewById(R.id.crewMemberName2);
+        progressBarCrewPoints = view.findViewById(R.id.progressBarCrewPoints);
 
         GameTracker tracker = MainActivity.getGameTracker();
         
@@ -127,76 +131,100 @@ public class MissionFragment extends Fragment {
 
         startButton.setEnabled(false);
         crewPointsGainedSession = 0;
-        villainsProcessed = 0;
         
         GameTracker tracker = MainActivity.getGameTracker();
         currentThreat = new Threat(tracker.getTotalMissions() + 1);
 
-        spawnNextVillain();
+        startTurn();
     }
 
-    private void spawnNextVillain() {
+    private void startTurn() {
+        // Check if mission is complete or everyone is out of energy before starting a new wave
         if (currentThreat.missionComplete() || (warrior1.getEnergy() <= 0 && warrior2.getEnergy() <= 0)) {
             showSummary();
             return;
         }
 
+        GameTracker tracker = MainActivity.getGameTracker();
+        villainsInTurnProcessed = 0;
+        // Determine wave size for this turn
+        villainsInTurnTotal = random.nextInt(4 * tracker.getTotalMissions()) + 5;
+
+        for (int i = 0; i < villainsInTurnTotal; i++) {
+            spawnVillainInWave();
+        }
+    }
+
+    private void spawnVillainInWave() {
         VillainType type = random.nextBoolean() ? VillainType.SOUR_GUMMY_WORM : VillainType.HARD_CANDY;
-        
-        TextView villain = new TextView(getContext());
-        villain.setText(type == VillainType.SOUR_GUMMY_WORM ? "🐛" : "🍬");
-        villain.setTextSize(60); 
+        TextView threatView = new TextView(getContext());
+        threatView.setText(type == VillainType.SOUR_GUMMY_WORM ? "🐛" : "🍬");
+        threatView.setTextSize(40);
 
         battleArena.post(() -> {
             int arenaWidth = battleArena.getWidth();
             int arenaHeight = battleArena.getHeight();
             if (arenaHeight <= 0) arenaHeight = 800;
 
-            int startY = random.nextInt(Math.max(1, arenaHeight - 150));
-            battleArena.addView(villain);
+            int startY = random.nextInt(Math.max(1, arenaHeight - 120));
+            battleArena.addView(threatView);
 
-            villain.setX(-300);
-            villain.setY(startY);
+            threatView.setX(-300);
+            threatView.setY(startY);
 
-            ObjectAnimator animator = ObjectAnimator.ofFloat(villain, "translationX", -300f, (float) arenaWidth + 300f);
-            animator.setDuration(7000);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(threatView, "translationX", -300f, (float) arenaWidth + 300f);
+            // Slower movement for better gameplay with multiple threats
+            animator.setDuration(8000 + random.nextInt(5000));
+            // Spread out spawning time so they don't all appear at once
+            animator.setStartDelay(random.nextInt(5000));
 
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (villain.getParent() != null) {
-                        battleArena.removeView(villain);
+                    if (threatView.getParent() != null) {
+                        battleArena.removeView(threatView);
+                        // Current warrior takes damage if threat reaches the end
                         CrewMember activeWarrior = isWarrior1Turn ? warrior1 : warrior2;
                         activeWarrior.takeBattleDamage();
                         
-                        switchTurn();
-                        spawnNextVillain();
+                        onVillainProcessed();
                     }
                 }
             });
 
-            villain.setOnClickListener(v -> {
+            threatView.setOnClickListener(v -> {
                 GameTracker tracker = MainActivity.getGameTracker();
                 CrewMember activeWarrior = isWarrior1Turn ? warrior1 : warrior2;
+
                 int gained = Mission.onMissionClick(activeWarrior, type);
-                
                 tracker.setCrewPoints(gained);
                 crewPointsGainedSession += gained;
+                updateProgressBar(crewPointsGainedSession);
+
                 currentThreat.threatDamage();
 
-                battleArena.removeView(villain);
+                battleArena.removeView(threatView);
                 animator.cancel();
                 
-                switchTurn();
-                spawnNextVillain();
+                onVillainProcessed();
             });
 
             animator.start();
         });
     }
 
+    private void onVillainProcessed() {
+        villainsInTurnProcessed++;
+        // If all villains in the current turn's wave are finished, switch turns
+        if (villainsInTurnProcessed >= villainsInTurnTotal) {
+            switchTurn();
+            startTurn();
+        }
+    }
+
     public void updateProgressBar(int crewPointsGainedSession) {
         if (progressBarCrewPoints != null) {
+            progressBarCrewPoints.setMax(1000);
             progressBarCrewPoints.setProgress(crewPointsGainedSession);
         }
     }
