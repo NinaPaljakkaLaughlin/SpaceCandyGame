@@ -81,11 +81,6 @@ public abstract class CrewMember {
         return XP;
     }
 
-    //Method for getting resilience
-    public int getResilience() {
-        return resilience;
-    }
-
     //Method for getting the amount of damage (note: XP can go negative)
     public int getDamageAmount() {
         int damage;
@@ -122,11 +117,6 @@ public abstract class CrewMember {
 
     public int getSkillPower() {
         return skillPower;
-    }
-
-    // Doctor can heal once they have at least 10 XP
-    public boolean canHealCrew() {
-        return crewType == CrewType.DOCTOR && XP >= 10;
     }
 
     //Method for getting energy

@@ -60,10 +60,6 @@ public class Doctor extends CrewMember {
         return false;
     }
 
-    public int getHealsUsed() {
-        return healsUsed;
-    }
-
     public int getRemainingHeals() {
         return (getXP() / 10) - healsUsed;
     }

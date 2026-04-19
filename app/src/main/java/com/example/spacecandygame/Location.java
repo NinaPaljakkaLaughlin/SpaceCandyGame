@@ -10,8 +10,6 @@ public enum Location {
     MISSION_CONTROL,
     //battle arena
     BATTLE,
-    //flower field for growing magical flowers that can be utilized by a scientist to create energy
-    FLOWER_FIELD,
     //medbay for crew member healing of energy when damage is taken in battle
     MEDBAY
 }

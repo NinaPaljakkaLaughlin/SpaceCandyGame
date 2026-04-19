@@ -23,10 +23,7 @@ public class Threat {
             threatCounter --;
         }
     }
-    //Method for accessing the threat counter
-    public int getThreatCounter() {
-        return threatCounter;
-    }
+
     //Method for tracking when a round is done
     public boolean missionComplete() {
         return threatCounter <= 0;
