@@ -41,7 +41,7 @@ CandyWorld Battle is a vibrant game where players explore a sugary world filled 
 
 ## 🧩 Class Diagram
 
-*(Add source or image here)*
+<img width="1668" height="2018" alt="15937A71-C17C-4C46-935B-6C9E46916C7B_1_201_a" src="https://github.com/user-attachments/assets/68fdb226-fca2-49ac-be4d-cdbfb5cee2c1" />
 
 ---
 
