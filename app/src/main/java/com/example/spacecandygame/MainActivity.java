@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         return gameTracker;
     }
 
+    //create page
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        //define button to go to homes (quarters)
         Button homeButton = findViewById(R.id.goToHomeButton);
 
+        //define button to go to recruit to recruit new crew members
         Button recruitButton = findViewById(R.id.recruitButton);
+
         //Button to Open home screen
         homeButton.setOnClickListener(v -> {
             getSupportFragmentManager()
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
-       // removed the button to go to medbay
+
         //Button to go to recruit
         recruitButton.setOnClickListener(v -> {
             getSupportFragmentManager()
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
+
+        //Button to go to rules screen
         Button rulesButton = findViewById(R.id.rulesButton);
         rulesButton.setOnClickListener(v -> {
             getSupportFragmentManager()
@@ -67,7 +73,5 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
-
-
     }
 }

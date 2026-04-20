@@ -14,6 +14,7 @@ public class Mission {
     private CrewMember member1;
     private CrewMember member2;
 
+    //Method for starting battle and battle handling
     public void startMission(CrewMember member1, CrewMember member2, Threat threat) {
 
         //if member cannot enter battle based on their total XP:
@@ -26,6 +27,8 @@ public class Mission {
         member1.setLocation(Location.BATTLE);
         member2.setLocation(Location.BATTLE);
 
+        //handling turns during battle while both crew members still have energy remaining and the
+        //mission is not complete (based on number of remaining candies to battle - randomly generated)
         while (!threat.missionComplete() && (member1.getEnergy() > 0 || member2.getEnergy() > 0)) {
 
             //member 1 turn
@@ -53,7 +56,7 @@ public class Mission {
         return values[index];
     }
 
-    // Change to public and static so MissionFragment can use it
+    //Method to handle clicks in the battle arena
     public static int onMissionClick(CrewMember member, VillainType target) {
         if (!member.canEnterBattle()) return 0;
 

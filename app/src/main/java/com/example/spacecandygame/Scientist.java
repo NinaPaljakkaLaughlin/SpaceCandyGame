@@ -12,8 +12,8 @@ ChatGPT was used to solve merge conflicts
 
 public class Scientist extends CrewMember{
     //Attributes
-    private int flowers; //need getter for UI
-    private int chemicals; //need getter for UI
+    private int flowers;
+    private int chemicals;
 
     //Constructor
     public Scientist(String id, String name) {
@@ -22,16 +22,18 @@ public class Scientist extends CrewMember{
         this.resilience = 8;
         this.XP = 0;
     }
+
     //Special ability: can attack sour gummy worms with chemical to train and battle
     //must pick flowers in the flower field and make chemical weapon for training and battle
 
     //while training to get 50 XP, can attack sour gummy worms to gain XP
-    //while > 50XP, can attack sour gummy worms in training(to gain XP) and can battle(to complete missions and gain crew points)
+    //while > 50XP, can attack sour gummy worms in training(to gain XP) and in battle(to complete missions and gain crew points)
     @Override
     public boolean canEnterBattle() {
         return getXP() >= 50;
     }
-    //Method to handle click in training and battle for points, XP, and damage
+
+    //Method to handle click in training for XP and damage
     @Override
     public int onTrainClick(VillainType target) {
         if (!hasChemicals()) return 0;
@@ -43,6 +45,8 @@ public class Scientist extends CrewMember{
         }
         return 0;
     }
+
+    //Method to handle click in battle for crew points and damage
     @Override
     public int onMissionClick(VillainType target) {
         if (!hasChemicals()) return 0;
@@ -54,18 +58,22 @@ public class Scientist extends CrewMember{
         }
         return 0;
     }
+
     //Method to get flowers number for UI display
     public int getFlowers() {
         return flowers;
     }
+
     //Method to get chemicals number for UI display
     public int getChemicals() {
         return chemicals;
     }
+
     //Method for picking flowers
     public void pickFlowers() {
         flowers += 1; //total flower count tracked here when flowers are clicked on UI
     }
+
     //Method for using flowers to make chemical
     public void makeChemical() {
         if (flowers >= 5) {
@@ -73,14 +81,17 @@ public class Scientist extends CrewMember{
             flowers -= 5; //total flower count subtracts when a chemical is formulated
         }
     }
+
     //Method for checking if scientist can start training
     public boolean canStartTraining() {
         return chemicals >= 10;
     }
+
     //Method for tracking existence of chemicals
     public boolean hasChemicals() {
         return chemicals > 0;
     }
+
     //Method to track ability to attack (must have chemical stock)
     public boolean canAttack() {
         if (!hasChemicals())
@@ -88,10 +99,14 @@ public class Scientist extends CrewMember{
         else
             return true;
     }
+
+    //Method for UI action
     @Override
     public int crewMemberAction(VillainType target) {
         return attack(target);
     }
+
+    //Method for attacking in training
     public int attack(VillainType target) { //should return crew points
         //must have chemicals
         if (!hasChemicals()) {
@@ -120,12 +135,12 @@ public class Scientist extends CrewMember{
             }
             return 0; //returns 0 crew points when training
         }
-        //battle
+        // and in battle
         if (getLocation() == Location.BATTLE && getXP() >= 50) {
             if (target == VillainType.SOUR_GUMMY_WORM) {
                 return 2; //crew points gained
             } else if (target == VillainType.GUMMY_BEAR || target == VillainType.HARD_CANDY) {
-                takeBattleDamage(); //lose energy when you hit gummy bears by accident
+                takeBattleDamage(); //lose energy when you hit gummy bears or hard candies by accident
             }
         }
         return 0;

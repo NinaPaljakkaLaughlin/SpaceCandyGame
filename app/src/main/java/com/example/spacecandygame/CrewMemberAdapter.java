@@ -17,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class CrewMemberAdapter extends RecyclerView.Adapter<CrewMemberAdapter.ViewHolder> {
+
+    //List of crew members created
     private List<CrewMember> crewList;
 
+    //Constructor
     public CrewMemberAdapter(List<CrewMember> crewList) {
         this.crewList = crewList;
     }
@@ -30,6 +33,7 @@ public class CrewMemberAdapter extends RecyclerView.Adapter<CrewMemberAdapter.Vi
         return new ViewHolder(view);
     }
 
+    //Display for each crew member in recycler view
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CrewMember member = crewList.get(position);
@@ -38,10 +42,12 @@ public class CrewMemberAdapter extends RecyclerView.Adapter<CrewMemberAdapter.Vi
         holder.stats.setText("XP: " + member.getXP() + " | Energy: " + member.getEnergy());
         holder.history.setText("Missions: " + member.getMissionsCompleted() + " | Training: " + member.getTrainingSessions());
 
+        //engineer stats should show flowers planted
         if (member instanceof Engineer) {
             holder.special.setVisibility(View.VISIBLE);
             // Assuming SpecialStuff might hold total flowers, but for individual engineer:
             holder.special.setText("Flowers Planted: " + SpecialStuff.getFlowers());
+            //scientist stats should show chemicals/potions created
         } else if (member instanceof Scientist) {
             holder.special.setVisibility(View.VISIBLE);
             Scientist scientist = (Scientist) member;
@@ -51,11 +57,13 @@ public class CrewMemberAdapter extends RecyclerView.Adapter<CrewMemberAdapter.Vi
         }
     }
 
+    //Method to get number of crew members
     @Override
     public int getItemCount() {
         return crewList.size();
     }
 
+    //Method to hold each crew member in recycler view for crew stats
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, type, stats, history, special;
 

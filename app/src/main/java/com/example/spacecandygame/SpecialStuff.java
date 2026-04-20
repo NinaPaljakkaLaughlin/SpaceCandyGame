@@ -12,20 +12,26 @@ ChatGPT was used to solve merge conflicts
 */
 
 public class SpecialStuff {
+
+    //default flowers in field 0
     private static int flowersInField = 0;
 
+    //Method for adding flowers to the field
     public static void addFlowers(int amount) {
         flowersInField += amount;
     }
 
+    //Method for getting number of flowers in the field
     public static int getFlowersInField() {
         return flowersInField;
     }
 
+    //Method for getting number of flowers in the field for UI display
     public static int getFlowers() {
         return flowersInField;
     }
 
+    //Method for picking flowers from the field
     public static boolean pickOneFlower() {
         if (flowersInField > 0) {
             flowersInField--;

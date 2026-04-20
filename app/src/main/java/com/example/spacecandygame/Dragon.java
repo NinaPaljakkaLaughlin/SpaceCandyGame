@@ -11,6 +11,7 @@ ChatGPT was used to solve merge conflicts
 */
 
 public class Dragon extends CrewMember {
+
     //constructor
     public Dragon(String id, String name) {
             super(id, name);
@@ -18,18 +19,19 @@ public class Dragon extends CrewMember {
             this.resilience = 10;
             this.XP = -10;
         }
-    //Special ability: can breathe fire to train and battle
 
     //while training to get 60 XP, can attack sour gummy worms to gain XP
-    //while > 60XP, can attack sour and sweet gummy worms in training(to gain XP) and can battle(to complete missions and gain crew points)
+    //while > 60XP, can attack sour gummy worms and hard candies in training(to gain XP) and battle(to complete missions and gain crew points)
     @Override
     public boolean canEnterBattle() {
         return getXP() >= 60;
     }
+
     @Override
     public int crewMemberAction(VillainType target) {
         return attack(target);
     }
+
     //Method to handle click in training and battle for points, XP, and damage
     @Override
     public int onTrainClick(VillainType target) {
@@ -50,6 +52,8 @@ public class Dragon extends CrewMember {
         }
         return 0;
     }
+
+    //Method for handling points and damage once XP > 60
     public int attack(VillainType target) { //should return crew points
         //dragon can only train
         if (getLocation() == Location.TRAINING && getXP() < 60) {
@@ -72,6 +76,7 @@ public class Dragon extends CrewMember {
             }
             return 0; //returns 0 crew points when training
         }
+
         //battle
         if (getLocation() == Location.BATTLE && getXP() >= 60) {
             if (target == VillainType.SOUR_GUMMY_WORM || target == VillainType.HARD_CANDY) {
