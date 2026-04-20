@@ -48,14 +48,16 @@ public class MissionFragment extends Fragment {
     private boolean isWarrior1Turn = true;
     private Threat currentThreat;
 
-    // Track wave progress for turns
+    // Track progress of candies defeated in each turn
     private int villainsInTurnProcessed = 0;
     private int villainsInTurnTotal = 0;
 
+    //Constructor
     public MissionFragment() {
         // Required empty public constructor
     }
 
+    //Create instance of mission
     public static MissionFragment newInstance(String warrior1Id, String warrior2Id) {
         MissionFragment fragment = new MissionFragment();
         Bundle args = new Bundle();
@@ -71,6 +73,7 @@ public class MissionFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_mission, container, false);
     }
 
+    //create battle arena page with buttons
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -95,6 +98,7 @@ public class MissionFragment extends Fragment {
             }
         }
 
+        //once both players are selected, go to battle arena
         if (warrior1 != null && warrior2 != null) {
             updateTurnDisplay(nameText1, nameText2);
             warrior1.setLocation(Location.BATTLE);
@@ -105,6 +109,7 @@ public class MissionFragment extends Fragment {
             startButton.setEnabled(false);
         }
 
+        //button to start battle
         startButton.setOnClickListener(v -> startBattle());
 
         backButton.setOnClickListener(v -> {
@@ -122,6 +127,7 @@ public class MissionFragment extends Fragment {
         });
     }
 
+    //display which crew member is active for the battle turn
     private void updateTurnDisplay(TextView nameText1, TextView nameText2) {
         if (warrior1 == null || warrior2 == null) return;
         
@@ -134,6 +140,7 @@ public class MissionFragment extends Fragment {
         }
     }
 
+    //start battle, count the battle towards total crew battles/missions
     private void startBattle() {
         if (warrior1 == null || warrior2 == null) return;
 
@@ -154,8 +161,8 @@ public class MissionFragment extends Fragment {
         }
 
         GameTracker tracker = MainActivity.getGameTracker();
-        villainsInTurnProcessed = 0;
-        // Determine wave size for this turn
+        villainsInTurnProcessed = 0; //track the number of candies already defeated in this turn
+        //get a size for the number of candies for the turn based on the total number of missions
         villainsInTurnTotal = random.nextInt(4 * tracker.getTotalMissions()) + 5;
 
         for (int i = 0; i < villainsInTurnTotal; i++) {
@@ -163,8 +170,9 @@ public class MissionFragment extends Fragment {
         }
     }
 
+    //Method to get candy threats into battle arena
     private void spawnVillainInWave() {
-        // Randomly select between Sour Gummy Worm, Hard Candy, and Gummy Bear
+        // Randomly select between sour gummy worm, hard candies, and gummy bears
         int rand = random.nextInt(3);
         VillainType type;
         if (rand == 0) type = VillainType.SOUR_GUMMY_WORM;
@@ -189,10 +197,11 @@ public class MissionFragment extends Fragment {
             threatView.setX(-300);
             threatView.setY(startY);
 
+            //animate the threats on the screen
             ObjectAnimator animator = ObjectAnimator.ofFloat(threatView, "translationX", -300f, (float) arenaWidth + 300f);
-            // Slower movement for better gameplay with multiple threats
+            //randomly setting speed of the threats
             animator.setDuration(8000 + random.nextInt(4000));
-            // Spread out spawning time so they don't all appear at once
+            //randomly setting time between different threats entering the screen
             animator.setStartDelay(random.nextInt(5000));
 
             animator.addListener(new AnimatorListenerAdapter() {
@@ -200,10 +209,10 @@ public class MissionFragment extends Fragment {
                 public void onAnimationEnd(Animator animation) {
                     if (threatView.getParent() != null) {
                         battleArena.removeView(threatView);
-                        // If it was a real threat (worm or candy), active warrior takes damage if they miss it
-                        if (type != VillainType.GUMMY_BEAR) {
+                        // If it was a real threat (sour gummy worm), active warrior takes damage if they miss it
+                        if (type != VillainType.GUMMY_BEAR || type != VillainType.HARD_CANDY) {
                             CrewMember activeWarrior = isWarrior1Turn ? warrior1 : warrior2;
-                            activeWarrior.takeBattleDamage();
+                            activeWarrior.takeBattleDamage(); //get damage for hitting a gummy bear or hard candy
                         }
                         
                         onVillainProcessed();
@@ -217,8 +226,8 @@ public class MissionFragment extends Fragment {
 
                 int gained = Mission.onMissionClick(activeWarrior, type);
                 tracker.setCrewPoints(gained);
-                crewPointsGainedSession += gained;
-                updateProgressBar(crewPointsGainedSession);
+                crewPointsGainedSession += gained; //tracking crew points gained in battle session
+                updateProgressBar(crewPointsGainedSession); //update the progress bar on the screen
 
                 // Only worms count towards defeating the threat
                 if (type != VillainType.SOUR_GUMMY_WORM) {
@@ -235,15 +244,17 @@ public class MissionFragment extends Fragment {
         });
     }
 
+    //Method for switching turns once the number of threats calculated have animated
     private void onVillainProcessed() {
         villainsInTurnProcessed++;
-        // If all villains in the current turn's wave are finished, switch turns
+        // If all villains in the current turn have gone across the screen, switch turns
         if (villainsInTurnProcessed >= villainsInTurnTotal) {
             switchTurn();
             startTurn();
         }
     }
 
+    //Method for updating progress bar on mission screen for crew points gained
     public void updateProgressBar(int crewPointsGainedSession) {
         if (progressBarCrewPoints != null) {
             progressBarCrewPoints.setMax(1000);
@@ -251,6 +262,7 @@ public class MissionFragment extends Fragment {
         }
     }
 
+    //Method to define switching the turn display
     private void switchTurn() {
         isWarrior1Turn = !isWarrior1Turn;
         if (isWarrior1Turn && warrior1.getEnergy() <= 0) isWarrior1Turn = false;
@@ -262,6 +274,7 @@ public class MissionFragment extends Fragment {
         }
     }
 
+    //Method for the summary to show after battle has ended
     private void showSummary() {
         summaryLayout.setVisibility(View.VISIBLE);
         TextView gainedTxt = summaryLayout.findViewById(R.id.summaryCrewPointsGained);

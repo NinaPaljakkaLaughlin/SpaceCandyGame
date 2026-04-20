@@ -38,6 +38,7 @@ public class RecruitFragment extends Fragment {
     private TextView descriptionText;
     private View colorOverlay;
 
+    //Constructor
     public RecruitFragment() {
         // Required empty public constructor
     }
@@ -65,8 +66,10 @@ public class RecruitFragment extends Fragment {
         characterPreview = view.findViewById(R.id.characterPreview);
         colorOverlay = view.findViewById(R.id.colorOverlay);
 
+        //crew type options
         String[] crewTypeNames = {"SOLDIER", "ENGINEER", "SCIENTIST", "DRAGON", "DOCTOR"};
 
+        //crew type option- stats
         String[] crewTypeDescriptions = {
                 "SOLDIER- starting XP: 0, starting energy: 12, starting skill power: 1",
                 "ENGINEER- starting XP: 0, starting energy: 12, starting skill power: 1, special ability: can plant flowers to gain extra XP",
@@ -83,6 +86,7 @@ public class RecruitFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
 
+        //color options for crew member created
         String[] colors = {"Pink", "Purple", "Yellow", "Green", "Blue", "Red", "Black"};
         ArrayAdapter<String> colorAdapter = new ArrayAdapter<>(
                 requireContext(),
@@ -164,6 +168,7 @@ public class RecruitFragment extends Fragment {
         });
     }
 
+    //updating the color of the image based on the crew type and color chosen
     private void updateCharacterPreview() {
         if (typeSpinner == null || colorSpinner == null || characterPreview == null || colorOverlay == null) {
             return;
@@ -181,6 +186,7 @@ public class RecruitFragment extends Fragment {
         colorOverlay.setBackgroundColor(overlayColor);
     }
 
+    //character images based on crew type selected
     private int getCharacterImage(String characterType) {
         switch (characterType) {
             case "SOLDIER":
@@ -198,6 +204,7 @@ public class RecruitFragment extends Fragment {
         }
     }
 
+    //specified color options
     private int getSelectedColorValue(String colorName) {
         switch (colorName) {
             case "Pink":

@@ -27,6 +27,7 @@ public class MedbayFragment extends Fragment {
     private CrewMember selectedCrewMember;
     private Doctor doctor;
 
+    //Constructor
     public MedbayFragment() {
         // Required empty public constructor
     }
@@ -58,6 +59,7 @@ public class MedbayFragment extends Fragment {
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //buttons created for each doctor crew type created -> show stats
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.DOCTOR) {
                 doctor = (Doctor) crewMember;
@@ -84,6 +86,7 @@ public class MedbayFragment extends Fragment {
             }
         }
 
+        //button for training the doctor to be able to heal
         trainDoctorButton.setOnClickListener(v -> {
             if (doctor != null) {
                 requireActivity().getSupportFragmentManager()
@@ -96,6 +99,7 @@ public class MedbayFragment extends Fragment {
             }
         });
 
+        //button for healing other crew members
         healButton.setOnClickListener(v -> {
             if (doctor == null) {
                 statsText.setText("Doctor not found.");
@@ -125,7 +129,7 @@ public class MedbayFragment extends Fragment {
             boolean healed = doctor.healCrewMember(selectedCrewMember);
 
             if (healed) {
-                selectedCrewMember.setLocation(Location.QUARTERS);
+                selectedCrewMember.setLocation(Location.QUARTERS); //when healed go back to home
                 doctor.setLocation(Location.MEDBAY);
 
                 statsText.setText(

@@ -30,6 +30,7 @@ public class DragonHouseFragment extends Fragment {
 
     private CrewMember selectedDragon;
 
+    //Constructor
     public DragonHouseFragment() {
         // Required empty public constructor
     }
@@ -61,6 +62,7 @@ public class DragonHouseFragment extends Fragment {
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //buttons to view stats for each dragon type crew member created
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.DRAGON) {
                 Button dragonButton = new Button(getContext());
@@ -82,6 +84,7 @@ public class DragonHouseFragment extends Fragment {
             }
         }
 
+        //button to go to training
         trainButton.setOnClickListener(v -> {
             if (selectedDragon != null) {
                 requireActivity().getSupportFragmentManager()
@@ -94,6 +97,7 @@ public class DragonHouseFragment extends Fragment {
             }
         });
 
+        //button to go to battle
         battleButton.setOnClickListener(v -> {
             if (selectedDragon == null) {
                 statsText.setText("Please select a dragon first.");
@@ -136,6 +140,7 @@ public class DragonHouseFragment extends Fragment {
                     .show();
         });
 
+        //button to send dragon to medbay for healing
         sendToMedbayButton.setOnClickListener(v -> {
             if (selectedDragon != null) {
                 selectedDragon.setLocation(Location.MEDBAY);

@@ -30,6 +30,7 @@ public class SoldierHouseFragment extends Fragment {
 
     private CrewMember selectedSoldier;
 
+    //Constructor
     public SoldierHouseFragment() {
         // Required empty public constructor
     }
@@ -60,6 +61,7 @@ public class SoldierHouseFragment extends Fragment {
         });
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //buttons for each crewmember of type soldier created to display stats and take action
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.SOLDIER) {
                 Button soldierButton = new Button(getContext());
@@ -81,6 +83,7 @@ public class SoldierHouseFragment extends Fragment {
             }
         }
 
+        //button to go to training
         trainButton.setOnClickListener(v -> {
             if (selectedSoldier != null) {
                 requireActivity().getSupportFragmentManager()
@@ -93,6 +96,7 @@ public class SoldierHouseFragment extends Fragment {
             }
         });
 
+        //button to go to battle
         battleButton.setOnClickListener(v -> {
             if (selectedSoldier == null) {
                 statsText.setText("Please select a soldier first.");
@@ -103,7 +107,7 @@ public class SoldierHouseFragment extends Fragment {
                 return;
             }
 
-            // Pop up to select second player
+            //select second crew member to go to battle
             List<CrewMember> availableOthers = new ArrayList<>();
             for (CrewMember m : gameTracker.getCrewList()) {
                 if (m != selectedSoldier && m.canEnterBattle() && m.getEnergy() > 0) {
@@ -135,6 +139,7 @@ public class SoldierHouseFragment extends Fragment {
                     .show();
         });
 
+        //button to send to medbay for healing
         sendToMedbayButton.setOnClickListener(v -> {
             if (selectedSoldier != null) {
                 selectedSoldier.setLocation(Location.MEDBAY);

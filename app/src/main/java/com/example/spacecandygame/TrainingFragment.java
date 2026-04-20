@@ -42,10 +42,12 @@ public class TrainingFragment extends Fragment {
     private int wormsProcessed = 0;
     private ProgressBar progressBarXP;
 
+    //Constructor
     public TrainingFragment() {
         // Required empty public constructor
     }
 
+    //create new instance of training screen with specific crew member
     public static TrainingFragment newInstance(String crewMemberId) {
         TrainingFragment fragment = new TrainingFragment();
         Bundle args = new Bundle();
@@ -115,6 +117,7 @@ public class TrainingFragment extends Fragment {
         });
     }
 
+    //method for starting training
     private void startTraining() {
         if (trainee == null) return;
 
@@ -124,7 +127,7 @@ public class TrainingFragment extends Fragment {
         wormsProcessed = 0;
         trainee.incrementTrainingSessions();
 
-
+        //randomly generate number of worms and hard candies for training arena
         int sourWormsCount = random.nextInt(10) + 12;
         int hardCandyCount = random.nextInt(8) + 8;
         totalCandyInSession = sourWormsCount + hardCandyCount;
@@ -137,6 +140,7 @@ public class TrainingFragment extends Fragment {
         }
     }
 
+    //Method for defining how the threats are created in the training arena
     private void spawnThreat(VillainType type) {
         TextView threat = new TextView(getContext());
         if (type == VillainType.SOUR_GUMMY_WORM) {
@@ -159,6 +163,7 @@ public class TrainingFragment extends Fragment {
             threat.setX(-300);
             threat.setY(startY);
 
+            //animation
             ObjectAnimator animator = ObjectAnimator.ofFloat(threat, "translationX", -300f, (float) arenaWidth + 300f);
             animator.setDuration(12000 + random.nextInt(5000));
             animator.setStartDelay(random.nextInt(10000));
@@ -184,7 +189,7 @@ public class TrainingFragment extends Fragment {
                     trainee.takeTrainingDamage(); // Losing XP
                     xpLostSession += Math.abs(trainee.getXP() - oldXP);
                 }
-                updateXpBar(trainee.getXP());
+                updateXpBar(trainee.getXP()); //keep XP progress bar updating
                 trainingArena.removeView(threat);
                 animator.cancel();
                 wormsProcessed++;
@@ -195,18 +200,21 @@ public class TrainingFragment extends Fragment {
         });
     }
 
+    //Method for updating XP progress bar
     public void updateXpBar(int xp) {
         if (progressBarXP != null) {
             progressBarXP.setProgress(xp);
         }
     }
 
+    //Method to know when training is complete (based on number of candies generated for session)
     private void checkTrainingEnd() {
         if (wormsProcessed >= totalCandyInSession) {
             showSummary();
         }
     }
 
+    //Method for summary display when training is complete
     private void showSummary() {
         if (summaryLayout != null) {
             summaryLayout.setVisibility(View.VISIBLE);

@@ -25,6 +25,7 @@ public class DoctorHouseFragment extends Fragment {
 
     private CrewMember selectedDoctor;
 
+    //Constructor
     public DoctorHouseFragment() {
         // Required empty public constructor
     }
@@ -56,6 +57,7 @@ public class DoctorHouseFragment extends Fragment {
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //define buttons to appear for each doctor type crew member created
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.DOCTOR) {
 
@@ -78,6 +80,7 @@ public class DoctorHouseFragment extends Fragment {
             }
         }
 
+        //train doctor button
         trainButton.setOnClickListener(v -> {
             if (selectedDoctor != null) {
                 requireActivity().getSupportFragmentManager()
@@ -90,6 +93,7 @@ public class DoctorHouseFragment extends Fragment {
             }
         });
 
+        //button for doctor to heal other crew members
         healButton.setOnClickListener(v -> {
             if (selectedDoctor != null) {
                 selectedDoctor.healed();

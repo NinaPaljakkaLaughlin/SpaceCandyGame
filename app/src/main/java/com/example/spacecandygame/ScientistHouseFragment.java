@@ -31,6 +31,7 @@ public class ScientistHouseFragment extends Fragment {
 
     private CrewMember selectedScientist;
 
+    //Constructor
     public ScientistHouseFragment() {}
 
     @Override
@@ -63,6 +64,7 @@ public class ScientistHouseFragment extends Fragment {
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //buttons to display all scientist crew member types created
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.SCIENTIST) {
 
@@ -85,7 +87,7 @@ public class ScientistHouseFragment extends Fragment {
             }
         }
 
-        // TRAIN
+        //button to go to training
         trainButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
                 Scientist scientist = (Scientist) selectedScientist;
@@ -103,7 +105,7 @@ public class ScientistHouseFragment extends Fragment {
             }
         });
 
-        // BATTLE
+        //button to go to battle
         battleButton.setOnClickListener(v -> {
             if (selectedScientist == null) {
                 statsText.setText("Please select a scientist first.");
@@ -114,7 +116,7 @@ public class ScientistHouseFragment extends Fragment {
                 return;
             }
 
-            // Pop up to select second player
+            //select the second crew member to battle
             List<CrewMember> availableOthers = new ArrayList<>();
             for (CrewMember m : gameTracker.getCrewList()) {
                 if (m != selectedScientist && m.canEnterBattle() && m.getEnergy() > 0) {
@@ -146,7 +148,7 @@ public class ScientistHouseFragment extends Fragment {
                     .show();
         });
 
-        // COLLECT FLOWERS
+        //button for scientist to collect flowers
         collectFlowerButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
                 requireActivity().getSupportFragmentManager()
@@ -159,7 +161,7 @@ public class ScientistHouseFragment extends Fragment {
             }
         });
 
-        // MAKE POTION
+        //button for scientist to make potions from flowers
         makePotionButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
                 Scientist scientist = (Scientist) selectedScientist;
@@ -175,7 +177,7 @@ public class ScientistHouseFragment extends Fragment {
             }
         });
 
-        // MEDBAY
+        //button to send scientist to medbay for healing
         sendToMedbayButton.setOnClickListener(v -> {
             if (selectedScientist != null) {
                 selectedScientist.setLocation(Location.MEDBAY);

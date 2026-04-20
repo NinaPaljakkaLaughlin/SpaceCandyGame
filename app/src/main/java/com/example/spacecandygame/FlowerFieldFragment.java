@@ -28,9 +28,9 @@ public class FlowerFieldFragment extends Fragment {
 
     private static final String ARG_CREW_ID = "crew_id";
     private static final String ARG_ROLE = "role";
-
     private CrewMember selectedMember;
 
+    //Constructor
     public FlowerFieldFragment() {
         // Required empty public constructor
     }
@@ -68,6 +68,7 @@ public class FlowerFieldFragment extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
+        //engineer can plant flowers but nobody else can
         if ("ENGINEER".equals(role)) {
             plantButton.setVisibility(View.VISIBLE);
             plantButton.setOnClickListener(v -> {
@@ -88,6 +89,7 @@ public class FlowerFieldFragment extends Fragment {
         renderFlowers(flowerContainer, infoText, role);
     }
 
+    //method to add flowers to the field as buttons (for scientist to click and collect)
     private void renderFlowers(LinearLayout flowerContainer, TextView infoText, String role) {
         flowerContainer.removeAllViews();
 
@@ -122,6 +124,7 @@ public class FlowerFieldFragment extends Fragment {
             flowerContainer.addView(flowerButton);
         }
 
+        //scientist can collect flowers from the field
         if ("SCIENTIST".equals(role) && selectedMember instanceof Scientist) {
             Scientist scientist = (Scientist) selectedMember;
             infoText.setText(

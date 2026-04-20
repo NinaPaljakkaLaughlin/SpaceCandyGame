@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 public class RulesFragment extends Fragment {
 
+    //Constructor
     public RulesFragment() {
         // Required empty constructor
     }

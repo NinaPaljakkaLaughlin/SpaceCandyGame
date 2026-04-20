@@ -30,6 +30,7 @@ public class EngineerHouseFragment extends Fragment {
 
     private CrewMember selectedEngineer;
 
+    //Constructor
     public EngineerHouseFragment() {}
 
     @Override
@@ -61,6 +62,7 @@ public class EngineerHouseFragment extends Fragment {
 
         GameTracker gameTracker = MainActivity.getGameTracker();
 
+        //buttons to view stats for each engineer type crew member created
         for (CrewMember crewMember : gameTracker.getCrewList()) {
             if (crewMember.getCrewType() == CrewType.ENGINEER) {
 
@@ -83,7 +85,7 @@ public class EngineerHouseFragment extends Fragment {
             }
         }
 
-        // TRAIN
+        //button to go to training
         trainButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
                 requireActivity().getSupportFragmentManager()
@@ -96,7 +98,7 @@ public class EngineerHouseFragment extends Fragment {
             }
         });
 
-        // BATTLE
+        //button to go to battle
         battleButton.setOnClickListener(v -> {
             if (selectedEngineer == null) {
                 statsText.setText("Please select an engineer first.");
@@ -139,7 +141,7 @@ public class EngineerHouseFragment extends Fragment {
                     .show();
         });
 
-        // FLOWER FIELD
+        //button to access flower field and plant flowers
         plantFlowerButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
                 requireActivity().getSupportFragmentManager()
@@ -152,7 +154,7 @@ public class EngineerHouseFragment extends Fragment {
             }
         });
 
-        // MEDBAY
+        //button to send engineer to medbay for healing
         sendToMedbayButton.setOnClickListener(v -> {
             if (selectedEngineer != null) {
                 selectedEngineer.setLocation(Location.MEDBAY);

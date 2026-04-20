@@ -31,6 +31,7 @@ public class CrewStatsFragment extends Fragment {
     private Button memberStatsButton;
     private ProgressBar progressBarTotalCrewPoints;
 
+    //Constructor
     public CrewStatsFragment() {
         // Required empty public constructor
     }
@@ -41,6 +42,7 @@ public class CrewStatsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_crew_stats, container, false);
     }
 
+    //On create, give stats screen with crew stats
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -63,6 +65,7 @@ public class CrewStatsFragment extends Fragment {
 
         teamStatsButton.setOnClickListener(v -> showOverallStats(gameTracker));
 
+        // Show stats for each member using member stats button - uses recycler view
         memberStatsButton.setOnClickListener(v -> {
             overallStatsText.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
@@ -80,6 +83,8 @@ public class CrewStatsFragment extends Fragment {
         });
     }
 
+    //Method for progress bar which updates to show total crew points gained by all crew members
+    //during battles
     public void updateProgressBar(int crewPointsTotal) {
         if (progressBarTotalCrewPoints != null) {
             progressBarTotalCrewPoints.setVisibility(View.VISIBLE);
@@ -91,6 +96,7 @@ public class CrewStatsFragment extends Fragment {
         }
     }
 
+    //Recycler view off for showing crew stats
     private void showOverallStats(GameTracker tracker) {
         overallStatsText.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
@@ -107,6 +113,7 @@ public class CrewStatsFragment extends Fragment {
             else if (member instanceof Doctor) doctors++;
         }
 
+        //show updated progress bar with total crew points
         updateProgressBar(tracker.getCrewPoints());
 
         String crewStats = "Total Missions: " + tracker.getTotalMissions() + "\n" +

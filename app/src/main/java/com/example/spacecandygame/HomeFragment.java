@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
 
+    //Constructor
     public HomeFragment() {
 
     }
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    //creating the homes (quarters) screen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -44,12 +46,13 @@ public class HomeFragment extends Fragment {
         Button medbayButton = view.findViewById(R.id.medbayButton);
         Button viewStatsButton = view.findViewById(R.id.viewStatsButton);
 
-        // Go back to start
+        //Go back to start
         startButton.setOnClickListener(v -> {
             requireActivity().finish();
             requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
         });
 
+        //Go to stats screen
         viewStatsButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -58,6 +61,7 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+        //Go to soldier house
         soldierHouseButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -66,6 +70,7 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+        //Go to scientist house
         scientistHouseButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -74,6 +79,7 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+        //Go to engineer house
         engineerHouseButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -82,6 +88,7 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+        //Go to dragon house
         dragonHouseButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -90,6 +97,7 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+        //Go to medbay (doctor house)
         medbayButton.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
